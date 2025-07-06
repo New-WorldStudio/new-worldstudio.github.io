@@ -1,5 +1,10 @@
 <template>
-  <header-bar></header-bar>
+  <div class="main">
+    <header-bar></header-bar>
+    <div class="container">
+
+    </div>
+  </div>
 </template>
 
 <script>
@@ -22,5 +27,8 @@ export default {
 
 
 <style scoped>
-
+.container {
+  width: 100vw;
+  height: 3000px;
+}
 </style>
