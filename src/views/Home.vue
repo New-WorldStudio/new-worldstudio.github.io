@@ -1,24 +1,26 @@
 <template>
   <header-bar></header-bar>
-  <h1>Hello World</h1>
-  <h1>新世界New World开发工作室官方网站</h1>
-  <p>hello</p>
 </template>
 
 <script>
 import HeaderBar from "@/components/HeaderBar.vue";
 export default {
-  name: 'App',
+  name: "Home",
   components: {
     HeaderBar
-  }
+  },
+  data(){
+    return {
 
+    }
+  },
+  methods: {
+
+  }
 }
 </script>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
+
+<style scoped>
+
 </style>
