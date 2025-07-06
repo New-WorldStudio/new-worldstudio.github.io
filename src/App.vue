@@ -1,8 +1,5 @@
 <template>
-  <header-bar></header-bar>
-  <h1>Hello World</h1>
-  <h1>新世界New World开发工作室官方网站</h1>
-  <p>hello</p>
+  <router-view></router-view>
 </template>
 
 <script>
