@@ -27,6 +27,10 @@ export default {
 
 
 <style scoped>
+.main {
+
+}
+
 .container {
   width: 100vw;
   height: 3000px;
