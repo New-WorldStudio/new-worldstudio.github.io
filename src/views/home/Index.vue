@@ -1,9 +1,6 @@
 <template>
-  <div class="main">
-    <header-bar></header-bar>
-    <div class="container">
+  <div class="main-container">
 
-    </div>
   </div>
 </template>
 
@@ -27,12 +24,11 @@ export default {
 
 
 <style scoped>
-.main {
 
-}
 
-.container {
+.main-container {
   width: 100vw;
   height: 3000px;
+  background: var(--bg-color);
 }
 </style>

@@ -1,0 +1,15 @@
+/* 主题颜色 */
+
+/* 默认的浅色主题 */
+:root {
+    --text-color: black;
+    --logo-text-color: #000000;
+    --bg-color: #fff;
+}
+
+/* 深色主题 */
+.dark{
+    --text-color: white;
+    --logo-text-color: #fff;
+    --bg-color: #000000;
+}

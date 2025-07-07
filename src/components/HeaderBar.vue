@@ -13,7 +13,7 @@
             :key="index"
             :class="{'has-dropdown': hasChildrenMenu(item)}"
           >
-            <span class="nav-label">
+            <span class="nav-label" @click="onMenuClick(item)">
               {{ item.text }}
               <i v-if="hasChildrenMenu(item)" class="bx bxs-chevron-down"></i>
             </span>
@@ -22,12 +22,12 @@
                 class="dropdown-item"
                 v-for="(child, cidx) in item.children"
                 :key="cidx"
-                @click="onMenuClick(child)"
+
               >
-                <router-link :to="child.link">
+                <a :href="child.link" target="_blank">
                   {{ child.text }}
                   <span v-if="child.link" class="arrow">↗</span>
-                </router-link>
+                </a>
               </div>
             </div>
           </div>
@@ -49,10 +49,12 @@
           <!-- 社交媒体快捷链接 -->
           <div class="social-links">
             <a id="gitee" href="https://gitee.com/New-WorldStudio" target="_blank" class="social-link" aria-label="Gitee">
-              <img src="/image/gitee.png" alt="">
+              <img v-if="!isDark" src="/image/gitee.png" alt="">
+              <img v-else src="/image/gitee_dark.png" alt="">
             </a>
             <a id="github" href="https://github.com/New-WorldStudio" target="_blank" class="social-link" aria-label="GitHub">
-              <img src="/image/github.png" alt="">
+              <img v-if="!isDark" src="/image/github.png" alt="">
+              <img v-else src="/image/github_dark.png" alt="">
             </a>
           </div>
         </div>
@@ -92,11 +94,11 @@ export default {
       navMenu: [
         {
           text: '关于我们',
-          link: '#',
+          link: '/about',
           children: []
         },
         {
-          text: '在线演示',
+          text: '案例演示',
           link: '#',
           children: [
             {
@@ -115,12 +117,12 @@ export default {
         },
         {
           text: '技术支持',
-          link: '#',
+          link: '/support',
           children: []
         },
         {
           text: '定制服务',
-          link: '#',
+          link: '/test2',
           children: [
             {
               text: 'Web网站',
@@ -145,6 +147,10 @@ export default {
               link: 'https://blog.eatfan.top'
             },
             {
+              text: 'Vue.js框架',
+              link: 'https://vuejs.org/'
+            },
+            {
               text: '交换友情链接？',
               link: '#'
             }
@@ -152,7 +158,7 @@ export default {
         },
         {
           text: '联系我们',
-          link: '#',
+          link: '/test',
           children: []
         }
       ]
@@ -163,18 +169,17 @@ export default {
     hasChildrenMenu(item) {
       return item.children.length > 0 && Array.isArray(item.children);
     },
-    onMenuClick(child) {
-      if (child.link) {
-        window.open(child.link, '_blank');
+    onMenuClick(item) {
+      if (item.link) {
+        this.$router.push({ path: item.link });
       }
     },
     toggleTheme() {
       this.isDark = !this.isDark;
-      // this.applyTheme();
+      console.log("HeaderBar:" + this.isDark);
+      this.$emit('toggleTheme',this.isDark);
     },
-    applyTheme() {
-      document.documentElement.setAttribute('data-theme', this.isDark ? 'dark' : 'light');
-    }
+    
   }
 }
 </script>
@@ -219,6 +224,7 @@ export default {
   font-size: 17px;
   font-weight: bold;
   white-space: nowrap;
+  color: var(--logo-text-color);
 }
 
 .content {
@@ -234,7 +240,7 @@ export default {
   font-size: 14px;
   cursor: pointer;
   padding: 6px 10px;
-  transition: all 0.2s ease;
+  color: var(--text-color);
 }
 
 /* 菜单按钮 */
@@ -475,7 +481,7 @@ export default {
 }
 
 /* 小屏设备适配 */
-@media (max-width: 768px) {
+@media (max-width: 830px) {
   .header-bar-content {
     display: flex;
     flex-direction: row;
