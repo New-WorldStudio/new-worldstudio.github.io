@@ -7,14 +7,16 @@
         </div>
 
         <div class="content">
-
           <div
             class="nav-link"
             v-for="(item, index) in navMenu"
             :key="index"
             :class="{'has-dropdown': hasChildrenMenu(item)}"
           >
-            {{ item.text }}
+            <span class="nav-label">
+              {{ item.text }}
+              <i v-if="hasChildrenMenu(item)" class="bx bxs-chevron-down"></i>
+            </span>
             <div class="dropdown-menu" v-if="hasChildrenMenu(item)">
               <div
                 class="dropdown-item"
@@ -26,19 +28,33 @@
                   {{ child.text }}
                   <span v-if="child.link" class="arrow">↗</span>
                 </router-link>
-
               </div>
             </div>
           </div>
 
           <div class="vertical-dividing-line"></div>
 
-          <div class="theme-toggle-button">
-
+          <!-- 主题切换按钮 -->
+          <div class="theme-toggle-button" @click="toggleTheme">
+            <div class="toggle-slider" :class="{ dark: isDark }">
+              <span class="toggle-icon">
+                <svg v-if="!isDark" width="16" height="16" viewBox="0 0 24 24"><!-- sun --><circle cx="12" cy="12" r="5" fill="#f7c948"/><g stroke="#f7c948" stroke-width="2"><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g></svg>
+                <svg v-else width="16" height="16" viewBox="0 0 24 24"><!-- moon --><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" fill="#888"/></svg>
+              </span>
+            </div>
           </div>
 
           <div class="vertical-dividing-line"></div>
 
+          <!-- 社交媒体快捷链接 -->
+          <div class="social-links">
+            <a id="gitee" href="https://gitee.com/New-WorldStudio" target="_blank" class="social-link" aria-label="Gitee">
+              <img src="/image/gitee.png" alt="">
+            </a>
+            <a id="github" href="https://github.com/New-WorldStudio" target="_blank" class="social-link" aria-label="GitHub">
+              <img src="/image/github.png" alt="">
+            </a>
+          </div>
         </div>
         <!-- 菜单按钮，仅移动端显示 -->
         <div class="menu-btn" @click="sidebarOpen = true">
@@ -71,6 +87,7 @@ export default {
   data(){
     return {
       sidebarOpen: false,
+      isDark: false,
 
       navMenu: [
         {
@@ -132,6 +149,11 @@ export default {
               link: '#'
             }
           ]
+        },
+        {
+          text: '联系我们',
+          link: '#',
+          children: []
         }
       ]
     }
@@ -145,6 +167,13 @@ export default {
       if (child.link) {
         window.open(child.link, '_blank');
       }
+    },
+    toggleTheme() {
+      this.isDark = !this.isDark;
+      // this.applyTheme();
+    },
+    applyTheme() {
+      document.documentElement.setAttribute('data-theme', this.isDark ? 'dark' : 'light');
     }
   }
 }
@@ -169,7 +198,7 @@ export default {
 
 .header-bar-content {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -195,7 +224,7 @@ export default {
 .content {
   flex-grow: 1;
   display: flex;
-  gap: 20px;
+  gap: 16px;
   justify-content: flex-end;
   align-items: center;
 }
@@ -360,6 +389,18 @@ export default {
   position: relative;
 }
 
+.nav-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.nav-label:hover {
+  color: #439fd0;
+}
+
 /* 垂直分割线 */
 .vertical-dividing-line {
   width : 1px;
@@ -371,8 +412,66 @@ export default {
 .theme-toggle-button {
   width: 40px;
   height: 22px;
-  border: red solid 1px;
-  border-radius:10px;
+  border-radius: 11px;
+  background: #ececec;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+  box-sizing: border-box;
+  position: relative;
+  padding: 0 2px;
+}
+.theme-toggle-button:hover {
+  background: #e0e0e0;
+}
+.toggle-slider {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  position: absolute;
+  left: 2px;
+  top: 1px;
+  transition: left 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toggle-slider.dark {
+  left: 20px;
+  background: #222;
+}
+.toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.social-links a {
+  width: 20px;
+  height: 20px;
+}
+
+#gitee {
+  margin-right: 7px;
+}
+
+#github {
+  margin-left: 7px;
+}
+
+.social-links a img {
+  width: 100%;
+  height: 100%;
 }
 
 /* 小屏设备适配 */
