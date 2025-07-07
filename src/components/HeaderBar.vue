@@ -7,12 +7,40 @@
         </div>
 
         <div class="content">
-          <div class="nav-link">关于我们</div>
-          <div class="nav-link">在线演示</div>
-          <div class="nav-link">技术支持</div>
-          <div class="nav-link">定制服务</div>
+
+          <div
+            class="nav-link"
+            v-for="(item, index) in navMenu"
+            :key="index"
+            :class="{'has-dropdown': hasChildrenMenu(item)}"
+          >
+            {{ item.text }}
+            <div class="dropdown-menu" v-if="hasChildrenMenu(item)">
+              <div
+                class="dropdown-item"
+                v-for="(child, cidx) in item.children"
+                :key="cidx"
+                @click="onMenuClick(child)"
+              >
+                <router-link :to="child.link">
+                  {{ child.text }}
+                  <span v-if="child.link" class="arrow">↗</span>
+                </router-link>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="vertical-dividing-line"></div>
+
+          <div class="theme-toggle-button">
+
+          </div>
+
+          <div class="vertical-dividing-line"></div>
+
         </div>
-        <!-- 汉堡菜单按钮，仅移动端显示 -->
+        <!-- 菜单按钮，仅移动端显示 -->
         <div class="menu-btn" @click="sidebarOpen = true">
           <span></span>
           <span></span>
@@ -42,7 +70,81 @@ export default {
   name: 'HeaderBar',
   data(){
     return {
-      sidebarOpen: false
+      sidebarOpen: false,
+
+      navMenu: [
+        {
+          text: '关于我们',
+          link: '#',
+          children: []
+        },
+        {
+          text: '在线演示',
+          link: '#',
+          children: [
+            {
+              text: 'Web网站',
+              link: '#',
+            },
+            {
+              text: '小程序',
+              link: '#'
+            },
+            {
+              text: '移动端app',
+              link: '#'
+            }
+          ]
+        },
+        {
+          text: '技术支持',
+          link: '#',
+          children: []
+        },
+        {
+          text: '定制服务',
+          link: '#',
+          children: [
+            {
+              text: 'Web网站',
+              link: '#'
+            },
+            {
+              text: '小程序',
+              link: '#'
+            },
+            {
+              text: '移动端app',
+              link: '#',
+            }
+          ]
+        },
+        {
+          text: '友情链接',
+          link: '#',
+          children: [
+            {
+              text: 'EatFan的个人博客',
+              link: 'https://blog.eatfan.top'
+            },
+            {
+              text: '交换友情链接？',
+              link: '#'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {
+    // 判断是否有子菜单
+    hasChildrenMenu(item) {
+      return item.children.length > 0 && Array.isArray(item.children);
+    },
+    onMenuClick(child) {
+      if (child.link) {
+        window.open(child.link, '_blank');
+      }
     }
   }
 }
@@ -55,7 +157,7 @@ export default {
   left: 0;
   width: 100%;
   z-index: 999;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  /*box-shadow: 0 1px 4px rgba(0,0,0,0.1);*/
 }
 
 .header-bar-container {
@@ -93,18 +195,20 @@ export default {
 .content {
   flex-grow: 1;
   display: flex;
-  gap: 24px;
+  gap: 20px;
   justify-content: flex-end;
   align-items: center;
 }
 
 .nav-link {
+  position: relative;
   font-size: 14px;
   cursor: pointer;
   padding: 6px 10px;
   transition: all 0.2s ease;
 }
 
+/* 菜单按钮 */
 .menu-btn {
   display: none;
   flex-direction: column;
@@ -122,6 +226,8 @@ export default {
 .menu-btn:hover {
   background: rgba(0,0,0,0.10);
 }
+
+
 .menu-btn span {
   display: block;
   height: 2.5px;
@@ -132,9 +238,12 @@ export default {
   transition: all 0.2s;
 }
 
+/* 侧边栏遮罩层样式 */
 .sidebar-mask {
   display: none;
 }
+
+/* 侧边栏样式 */
 .sidebar {
   display: block;
   position: fixed;
@@ -181,6 +290,89 @@ export default {
 }
 .sidebar .nav-link:hover {
   background: #f5f5f5;
+}
+
+
+.has-dropdown:hover .dropdown-menu,
+.has-dropdown:focus-within .dropdown-menu {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 160px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  border-radius: 12px;
+  padding: 8px 0;
+  margin-top: 0;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+
+.dropdown-item {
+  padding: 5px 15px 5px 15px;
+  font-size: 14px;
+  color: #090909;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  transition: background 0.18s;
+}
+
+.dropdown-item a {
+  text-decoration: none;
+  color: #090909;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.dropdown-item a:hover {
+  background: #f5f5f5;
+  color: #439fd0;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #eee;
+  margin: 6px 0;
+}
+
+.arrow {
+  margin-left: 6px;
+  font-size: 13px;
+  color: #888;
+}
+
+/* 让有下拉菜单的nav-link为flex列布局，保证下拉菜单紧贴主菜单 */
+.nav-link.has-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* 垂直分割线 */
+.vertical-dividing-line {
+  width : 1px;
+  height: 26px;
+  background: #cecbcb;
+}
+
+/* 主题切换按钮 */
+.theme-toggle-button {
+  width: 40px;
+  height: 22px;
+  border: red solid 1px;
+  border-radius:10px;
 }
 
 /* 小屏设备适配 */
@@ -271,5 +463,10 @@ export default {
   .sidebar .nav-link:hover {
     background: #f5f5f5;
   }
+
+  .vertical-dividing-line {
+    display: none;
+  }
 }
+
 </style>
