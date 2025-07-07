@@ -2,7 +2,7 @@
   <div class="header-bar">
     <div class="header-bar-container">
       <div class="header-bar-content">
-        <div class="logo">
+        <div class="logo" @click="goToURL('/')">
           <p>新世界 NewWorld工作室</p>
         </div>
 
@@ -164,6 +164,14 @@ export default {
       ]
     }
   },
+
+  mounted() {
+    const theme = localStorage.getItem('theme');
+    if (theme) {
+      this.isDark = theme === 'dark';
+    }
+  },
+
   methods: {
     // 判断是否有子菜单
     hasChildrenMenu(item) {
@@ -174,12 +182,16 @@ export default {
         this.$router.push({ path: item.link });
       }
     },
+    // 跳转URL
+    goToURL(url){
+      this.$router.push({ path: url });
+    },
+    // 切换主题
     toggleTheme() {
       this.isDark = !this.isDark;
-      console.log("HeaderBar:" + this.isDark);
       this.$emit('toggleTheme',this.isDark);
     },
-    
+
   }
 }
 </script>

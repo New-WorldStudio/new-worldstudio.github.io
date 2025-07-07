@@ -17,11 +17,19 @@ export default {
       isDark: false
     }
   },
+
+  mounted() {
+    const theme = localStorage.getItem('theme');
+    if (theme) {
+      this.isDark = theme === 'dark';
+    }
+  },
+
   methods: {
     // 监听主题切换
     handlerToggleTheme(data) {
       this.isDark = data;
-      console.log(this.isDark);
+      localStorage.setItem('theme', data ? 'dark' : 'light');
     }
   }
 
@@ -39,7 +47,7 @@ export default {
 }
 
 
-.main.is-Dark {
+.main.dark {
   background: black;
 }
 </style>
