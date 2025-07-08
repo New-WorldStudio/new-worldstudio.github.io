@@ -9,6 +9,10 @@
     --primary-btn-text-color: #fff;
     --glow-color: #888;
     --box-bg-color: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.75);
+    --card-text: #222;
+    --card-title-color: #000;
+    --card-content-text-color: #555;
 }
 
 /* 深色主题 */
@@ -20,4 +24,8 @@
     --primary-btn-text-color: #fff;
     --glow-color: #fff;
     --box-bg-color: #1c1c20;
+    --card-bg: rgba(30, 34, 44, 0.85);
+    --card-text: #f3f6fa;
+    --card-title-color: #fff;
+    --card-content-text-color: #f0f0f0;
 }

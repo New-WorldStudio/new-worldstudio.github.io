@@ -25,21 +25,31 @@
       <div class="features-section-title">
         <span>我们的优势</span>
       </div>
-
       <div class="features-list">
-        <div class="feature-item">
-          <h3>专业团队</h3>
-          <p>多年开发经验，技术全面，响应迅速</p>
-        </div>
-        <div class="feature-item">
-          <h3>定制开发</h3>
-          <p>根据客户需求量身打造专属解决方案</p>
-        </div>
-        <div class="feature-item">
-          <h3>全流程服务</h3>
-          <p>从需求分析到上线运维，全程无忧</p>
+        <div
+          class="feature-card"
+          v-for="(item, idx) in features"
+          :key="idx"
+          :style="{ animationDelay: (idx * 0.1) + 's' }"
+        >
+          <div class="feature-icon" v-html="item.icon"></div>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.desc }}</p>
         </div>
       </div>
+
+<!--      <div class="features-list">-->
+<!--        <div-->
+<!--            class="feature-card"-->
+<!--            v-for="(item, idx) in features"-->
+<!--            :key="idx"-->
+<!--            :style="{ animationDelay: (idx * 0.1) + 's' }"-->
+<!--        >-->
+<!--          <div class="feature-icon" v-html="item.icon"></div>-->
+<!--          <h3>{{ item.title }}</h3>-->
+<!--          <p>{{ item.desc }}</p>-->
+<!--        </div>-->
+<!--      </div>-->
     </section>
     <!-- 可继续添加案例、合作伙伴、联系方式等分区 -->
 
@@ -65,11 +75,31 @@ export default {
           "致力于为客户提供一站式数字化解决方案",
 
       ],
-      typewriterIndex: 0
+      typewriterIndex: 0,
+      features: [
+        {
+          icon: '💡', // 也可以用 SVG
+          title: '专业团队',
+          desc: '多年开发经验，技术全面，响应迅速'
+        },
+        {
+          icon: '🛠️',
+          title: '定制开发',
+          desc: '根据客户需求量身打造专属解决方案'
+        },
+        {
+          icon: '🔗',
+          title: '全流程服务',
+          desc: '从需求分析到上线运维，全程无忧'
+        },
+
+      ]
     }
   },
   mounted() {
+    // 开启打字效果
     this.startTypewriter();
+    // 初始化粒子效果
     this.initParticles();
     window.addEventListener("resize", this.resizeCanvas);
   },
@@ -78,6 +108,7 @@ export default {
     cancelAnimationFrame(this.animationId);
   },
   methods: {
+    // 开启打字特效
     startTypewriter() {
       const el = this.$refs.typewriter;
       const texts = this.typewriterTexts;
@@ -222,7 +253,6 @@ export default {
   background-clip: text; /* 兼容部分浏览器 */
   color: transparent;
   font-size: clamp(2.5rem, 8vw, 5rem);
-  //filter: drop-shadow(0 0 10px #00c3ff99)
  }
 
 
@@ -235,6 +265,7 @@ export default {
 
 }
 
+/* 主要标题发光 */
 .main-title-glow:hover {
   text-shadow:
       0 0 10px #888,
@@ -262,6 +293,8 @@ export default {
   overflow-wrap: break-word;
   vertical-align: bottom;
 }
+
+/* 光标指针 */
 @keyframes blink-cursor {
   0%, 100% { border-color: #439fd0; }
   50% { border-color: transparent; }
@@ -307,58 +340,127 @@ export default {
 
 /* 展示部分样式 */
 .features-section {
-  //background: #fff;
-  padding: 3rem 0 2rem 0;
-  min-height: 100vh;
+  margin: 64px 0 60px 0;
+  text-align: center;
 }
 
 /* 展示部分标题样式 */
 .features-section-title {
-  height: 50px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
+/* 展示区标题 */
 .features-section-title span {
-  background: linear-gradient(135deg, #525050 0%, #ccc 100%);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  background: linear-gradient(90deg, #439fd0 30%, #7ed6df 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text; /* 兼容部分浏览器 */
-  color: transparent;
-  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 32px;
   letter-spacing: 2px;
-  font-size: clamp(0.6rem, 6vw, 2.2rem);
 }
 
 /* 展示部分列表容器 */
 .features-list {
   display: flex;
+  gap: 32px;
   justify-content: center;
-  gap: 2.5rem;
-  max-width: 900px;
-  margin: 20px auto;
+  flex-wrap: wrap;
+  margin-top: 24px;
 }
 
 /* 展示部分列表容器物品样式 */
-.feature-item {
-  background: #abaeb0;
-  border-radius: 16px;
-  padding: 2rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(67,159,208,0.06);
-  text-align: center;
-  width: 220px;
+.feature-card {
+  background: var(--card-bg);
+  color: var(--card-text);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(67,159,208,0.10);
+  padding: 36px 28px 28px 28px;
+  width: 300px;
+  min-width: 220px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: fadeUpStrong 0.9s cubic-bezier(.22,1.12,.36,1) both;
 }
 
-.feature-item h3 {
-  color: var(--text-color);
-  margin-bottom: 0.7rem;
+.feature-card:hover {
+  transform: translateY(-28px) scale(1.12) rotate(-2deg);
+  box-shadow:
+    0 16px 48px 0 rgba(67,159,208,0.32),
+    0 0 0 4px rgba(67,159,208,0.10),
+    0 0 24px 4px #7ed6df55;
+  outline: 2px solid #7ed6df55;
+  transition:
+    transform 0.22s cubic-bezier(.22,1.12,.36,1),
+    box-shadow 0.22s,
+    outline 0.22s;
 }
 
-.feature-item p {
-  color: var(--text-color);
+.feature-icon {
+  font-size: 2.6rem;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 2px 8px #7ed6df55);
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--card-title-color);
+}
+
+.feature-card p {
   font-size: 1rem;
+  color: var(--card-content-text-color);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .features-list {
+    gap: 18px;
+  }
+  .feature-card {
+    width: 90vw;
+    min-width: unset;
+    padding: 28px 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .features-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .feature-card {
+    width: 98vw;
+    padding: 22px 4vw;
+  }
+}
+
+@keyframes fadeUpStrong {
+  0% {
+    opacity: 0.2;
+    transform: translateY(60px) scale(0.92);
+    filter: blur(2px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-8px) scale(1.04);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
 }
 
 /* 底部栏样式 */
@@ -377,6 +479,15 @@ export default {
   }
 }
 
-
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 </style>
