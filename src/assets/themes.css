@@ -5,6 +5,7 @@
     --text-color: black;
     --logo-text-color: #000000;
     --bg-color: #fff;
+    --primary-btn-text-color: #fff;
 }
 
 /* 深色主题 */
@@ -12,4 +13,5 @@
     --text-color: white;
     --logo-text-color: #fff;
     --bg-color: #1c1c20;
+    --primary-btn-text-color: #fff;
 }

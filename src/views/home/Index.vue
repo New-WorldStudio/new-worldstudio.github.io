@@ -1,7 +1,6 @@
 <!-- 主页界面 -->
 <template>
   <div class="main-container">
-
     <!--  -->
     <section class="hero-section">
       <div class="hero-content">
@@ -16,14 +15,17 @@
           让数字世界更美好
         </p>
         <div class="hero-actions">
-          <button class="primary-btn">联系我们</button>
-          <button class="secondary-btn">查看案例</button>
+
         </div>
       </div>
     </section>
 
     <!-- TODO: 特征特长展示区域 -->
     <section class="features-section">
+      <div class="features-section-title">
+        <span>我们的优势</span>
+      </div>
+
       <div class="features-list">
         <div class="feature-item">
           <h3>专业团队</h3>
@@ -40,6 +42,11 @@
       </div>
     </section>
     <!-- 可继续添加案例、合作伙伴、联系方式等分区 -->
+
+    <!-- 底部栏 -->
+    <div class="footer">
+      <p>Copyright © 2025-present NewWorld新世界</p>
+    </div>
   </div>
 </template>
 
@@ -91,6 +98,7 @@ export default {
   margin-bottom: 1.5rem;
 }
 
+/* 渐变字体 */
 .gradient-text {
   background: linear-gradient(90deg, #42d392 0%, #439fd0 100%);
   -webkit-background-clip: text;
@@ -122,23 +130,21 @@ export default {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
-
 }
 
 .primary-btn, .secondary-btn {
   padding: 0.75rem 2rem;
   font-size: 1.1rem;
-  border-radius: 999px;
-  //border: none;
-  cursor: pointer;
+  border-radius: 15px;
   font-weight: 600;
   transition: background 0.2s, color 0.2s;
-  border: red solid 1px;
 }
 
 .primary-btn {
-  background: red;
-  color: var(--text-color);
+  background: black;
+  border: white solid 1px;
+  color: var(--primary-btn-text-color);
+
 }
 
 .primary-btn:hover {
@@ -156,9 +162,30 @@ export default {
   color: #439fd0;
 }
 
+/* 展示部分样式 */
 .features-section {
-  background: #fff;
+  //background: #fff;
   padding: 3rem 0 2rem 0;
+  min-height: 100vh;
+}
+
+.features-section-title {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.features-section-title span {
+  background: linear-gradient(135deg, #525050 0%, #ccc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* 兼容部分浏览器 */
+  color: transparent;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: clamp(0.6rem, 6vw, 2.2rem);
 }
 
 .features-list {
@@ -166,11 +193,11 @@ export default {
   justify-content: center;
   gap: 2.5rem;
   max-width: 900px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .feature-item {
-  background: #24292c;
+  background: #abaeb0;
   border-radius: 16px;
   padding: 2rem 1.5rem;
   box-shadow: 0 2px 8px rgba(67,159,208,0.06);
@@ -186,6 +213,16 @@ export default {
 .feature-item p {
   color: var(--text-color);
   font-size: 1rem;
+}
+
+/* 底部栏样式 */
+.footer {
+  height: 100px;
+  border-top: #d1d3d5 solid 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
 }
 
 @media (max-width: 830px) {
