@@ -7,7 +7,7 @@
         <img class="studio-logo" src="" alt="" />
         <h1>
           <span class="main-title">
-            <span class="gradient-text">NewWorld</span><br>新世界开发工作室
+            <span class="gradient-text">NewWorld</span><br><span class="main-title-glow">新世界开发工作室</span>
           </span>
         </h1>
         <p class="subtitle">
@@ -114,6 +114,14 @@ export default {
   font-weight: bold;
   letter-spacing: 2px;
   color: var(--text-color);
+
+}
+
+.main-title-glow:hover {
+  text-shadow:
+      0 0 10px #888,
+      0 0 20px #aaa,
+      0 0 30px #bbb;
 }
 
 /* 副标题 */
