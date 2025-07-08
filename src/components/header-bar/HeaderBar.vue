@@ -24,7 +24,7 @@
                 :key="cidx"
 
               >
-                <a :href="child.link" target="_blank">
+                <a @click="onSidebarSubLinkClick(child)">
                   {{ child.text }}
                   <span v-if="child.link" class="arrow">↗</span>
                 </a>
@@ -143,12 +143,21 @@ export default {
         },
         {
           text: '技术支持',
-          link: '/support',
-          children: []
+          link: '#',
+          children: [
+            {
+              text: '博客',
+              link: '/blog'
+            },
+            {
+              text: '共享知识库',
+              link: '/know'
+            }
+          ]
         },
         {
           text: '定制服务',
-          link: '/test2',
+          link: '#',
           children: [
             {
               text: 'Web网站',
@@ -214,7 +223,7 @@ export default {
     // 菜单点击
     onMenuClick(item) {
       if (item.link) {
-        this.$router.push({ path: item.link });
+        this.$router.push(item.link);
       }
     },
     // 跳转URL

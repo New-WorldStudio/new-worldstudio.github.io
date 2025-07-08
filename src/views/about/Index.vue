@@ -5,7 +5,6 @@
     <div class="blur-spot spot2"></div>
     <div class="blur-spot spot3"></div>
     <div class="blur-spot spot4"></div>
-    <!-- 可继续添加更多 -->
   </div>
   <div class="about-container">
     <!-- 品牌介绍 -->
@@ -27,7 +26,7 @@
           class="timeline-item"
           v-for="(item, idx) in timeline"
           :key="item.year"
-          :style="{ animationDelay: (0.15 * idx) + 's' }"
+          :style="{ animationDelay: (0.2 * idx) + 's' }"
         >
           <div class="timeline-dot"></div>
           <div class="timeline-content">
@@ -216,7 +215,7 @@ export default {
 }
 
 .about-team, .about-future {
-  background: #fff;
+  background: var(--box-bg-color);
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(67,159,208,0.08);
   padding: 2.5rem 1.5rem;
@@ -255,7 +254,7 @@ export default {
   margin-bottom: 1rem;
 }
 .about-future p {
-  color: #222;
+  color: var(--text-color);
   font-size: 1.1rem;
 }
 

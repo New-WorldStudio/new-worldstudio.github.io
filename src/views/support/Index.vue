@@ -1,7 +1,8 @@
+<!-- 技术支持页面 -->
 <template>
-  <div class="main-container">
+  <div class="support-container">
 
-    <div class="main-content">
+    <div class="support-content">
       <h1>Hello World</h1>
     </div>
   </div>
@@ -14,15 +15,14 @@ export default {
 </script>
 
 <style scoped>
-.main-container {
-  width: 100vw;
-  height: 2000px;
+.support-container {
+  padding-top: 80px;
+  border: red solid 1px;
+  display: flex;
+  justify-content: center;
 }
 
-.main-content {
-  width: 100%;
-  height: 500px;
-  margin-top: 64px;
-  border: blue solid 1px;
+.support-content {
+
 }
 </style>

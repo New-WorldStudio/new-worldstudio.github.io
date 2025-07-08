@@ -8,6 +8,7 @@
     --bg-particles-color: #000;
     --primary-btn-text-color: #fff;
     --glow-color: #888;
+    --box-bg-color: #ffffff;
 }
 
 /* 深色主题 */
@@ -18,4 +19,5 @@
     --bg-particles-color: #fff;
     --primary-btn-text-color: #fff;
     --glow-color: #fff;
+    --box-bg-color: #1c1c20;
 }
