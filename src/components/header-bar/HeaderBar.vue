@@ -112,6 +112,9 @@ export default {
             {
               text: '移动端app',
               link: '#'
+            },
+            {
+              text: '游戏插件模组'
             }
           ]
         },
@@ -135,6 +138,10 @@ export default {
             {
               text: '移动端app',
               link: '#',
+            },
+            {
+              text: '游戏插件模组',
+              link: '#'
             }
           ]
         },
