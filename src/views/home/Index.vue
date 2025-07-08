@@ -11,8 +11,7 @@
           </span>
         </h1>
         <p class="subtitle">
-          专注于高品质网站、小程序、APP定制开发<br>
-          让数字世界更美好
+          <span ref="typewriter" class="typewriter-text"></span>
         </p>
         <div class="hero-actions">
 
@@ -57,13 +56,50 @@ export default {
   components: {
     HeaderBar
   },
-  data(){
+  data() {
     return {
+      typewriterTexts: [
+          "驱动科技革命，开创数字未来，让每个创意都成为现实",
+          "专注于高品质网站、小程序、APP定制开发，让数字世界更美好",
+          "致力于为客户提供一站式数字化解决方案",
 
+      ],
+      typewriterIndex: 0
     }
   },
+  mounted() {
+    this.startTypewriter();
+  },
   methods: {
+    startTypewriter() {
+      const el = this.$refs.typewriter;
+      const texts = this.typewriterTexts;
+      let idx = 0;
+      let isDeleting = false;
+      let txt = "";
+      let loopNum = 0;
+      const type = () => {
+        const fullTxt = texts[idx];
+        if (isDeleting) {
+          txt = fullTxt.substring(0, txt.length - 1);
+        } else {
+          txt = fullTxt.substring(0, txt.length + 1);
+        }
+        el.innerHTML = txt;
 
+        let delta = isDeleting ? 40 : 80;
+        if (!isDeleting && txt === fullTxt) {
+          delta = 1200; // 停留时间
+          isDeleting = true;
+        } else if (isDeleting && txt === "") {
+          isDeleting = false;
+          idx = (idx + 1) % texts.length;
+          delta = 500;
+        }
+        setTimeout(type, delta);
+      };
+      type();
+    }
   }
 }
 </script>
@@ -106,7 +142,11 @@ export default {
   background-clip: text; /* 兼容部分浏览器 */
   color: transparent;
   font-size: clamp(2.5rem, 8vw, 5rem);
+  filter:
+      drop-shadow(0 0 10px #00c3ff99)
+  /* 可选：悬停时更亮 */
 }
+
 
 /* 主要大标题 */
 .main-title {
@@ -127,9 +167,25 @@ export default {
 /* 副标题 */
 .subtitle {
   margin-top: 1.2rem;
-  /* font-size: 1.2rem; */
   color: var(--text-color);
   font-size: clamp(1rem, 2.5vw, 1.2rem);
+  text-align: center;
+}
+
+.typewriter-text {
+  border-right: 2px solid #439fd0;
+  animation: blink-cursor 1s steps(1) infinite;
+  display: inline-block;
+  max-width: 90vw;
+  min-width: 10ch;
+  white-space: normal;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  vertical-align: bottom;
+}
+@keyframes blink-cursor {
+  0%, 100% { border-color: #439fd0; }
+  50% { border-color: transparent; }
 }
 
 /* 介绍内容的活动主要区域 */
@@ -238,4 +294,6 @@ export default {
 
   }
 }
+
+
 </style>
