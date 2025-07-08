@@ -74,10 +74,32 @@
         <button class="close-btn" @click="sidebarOpen = false">×</button>
       </div>
       <div class="sidebar-links">
-        <div class="nav-link" @click="sidebarOpen = false">关于我们</div>
-        <div class="nav-link" @click="sidebarOpen = false">在线演示</div>
-        <div class="nav-link" @click="sidebarOpen = false">技术支持</div>
-        <div class="nav-link" @click="sidebarOpen = false">定制服务</div>
+        <template v-for="(item, idx) in navMenu" :key="idx">
+          <div
+            class="nav-link"
+            :class="{ 'has-children': hasChildrenMenu(item), 'open': openIndex === idx }"
+            @click="onSidebarMenuClick(idx, item)"
+          >
+            <span>{{ item.text }}</span>
+            <span v-if="hasChildrenMenu(item)" class="arrow" @click.stop="toggleSidebarSubmenu(idx)">
+              <i :class="openIndex === idx ? 'bx bxs-chevron-up' : 'bx bxs-chevron-down'"></i>
+            </span>
+          </div>
+          <!-- 子菜单 -->
+          <div
+            v-if="hasChildrenMenu(item) && openIndex === idx"
+            class="sidebar-submenu"
+          >
+            <div
+              class="sidebar-sub-link"
+              v-for="(child, cidx) in item.children"
+              :key="cidx"
+              @click="onSidebarSubLinkClick(child)"
+            >
+              {{ child.text }}
+            </div>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -90,6 +112,7 @@ export default {
     return {
       sidebarOpen: false,
       isDark: false,
+      openIndex: null,
 
       navMenu: [
         {
@@ -154,6 +177,10 @@ export default {
               link: 'https://blog.eatfan.top'
             },
             {
+              text: 'Spring',
+              link: 'https://spring.io'
+            },
+            {
               text: 'Vue.js框架',
               link: 'https://vuejs.org/'
             },
@@ -182,8 +209,9 @@ export default {
   methods: {
     // 判断是否有子菜单
     hasChildrenMenu(item) {
-      return item.children.length > 0 && Array.isArray(item.children);
+      return item.children && item.children.length > 0 && Array.isArray(item.children);
     },
+    // 菜单点击
     onMenuClick(item) {
       if (item.link) {
         this.$router.push({ path: item.link });
@@ -198,7 +226,38 @@ export default {
       this.isDark = !this.isDark;
       this.$emit('toggleTheme',this.isDark);
     },
-
+    // 当侧边栏菜单被点击
+    onSidebarMenuClick(idx, item) {
+      if (!this.hasChildrenMenu(item)) {
+        this.sidebarOpen = false;
+        if (item.link) {
+          if (/^https?:\/\//.test(item.link)) {
+            window.open(item.link, "_blank");
+          } else {
+            this.$router.push({ path: item.link });
+          }
+        }
+      } else {
+        this.toggleSidebarSubmenu(idx);
+      }
+    },
+    // 切换打开关闭侧边栏子菜单
+    toggleSidebarSubmenu(idx) {
+      this.openIndex = this.openIndex === idx ? null : idx;
+    },
+    // 当侧边栏子菜单被点击
+    onSidebarSubLinkClick(child) {
+      this.sidebarOpen = false;
+      if (child.link) {
+        if (/^https?:\/\//.test(child.link)) {
+          // 外部链接
+          window.open(child.link, "_blank");
+        } else {
+          // 内部路由
+          this.$router.push({ path: child.link });
+        }
+      }
+    }
   }
 }
 </script>
@@ -237,6 +296,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.logo:hover p {
+  color: #439fd0;
 }
 
 .logo p {
@@ -591,6 +654,23 @@ export default {
   .vertical-dividing-line {
     display: none;
   }
+}
+
+.sidebar-submenu {
+  padding-left: 18px;
+  background: #f6f6f6;
+}
+.sidebar-sub-link {
+  padding: 8px 0;
+  cursor: pointer;
+  color: #222;
+}
+.sidebar-sub-link:hover {
+  color: #439fd0;
+}
+.arrow {
+  margin-left: 8px;
+  font-size: 14px;
 }
 
 </style>
