@@ -76,7 +76,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: red solid 1px;
 }
 
 /* 介绍栏主要内容 */
@@ -98,12 +97,12 @@ export default {
   -webkit-text-fill-color: transparent;
   background-clip: text; /* 兼容部分浏览器 */
   color: transparent;
-  font-size: 5rem;
+  font-size: clamp(2.5rem, 8vw, 5rem);
 }
 
 /* 主要大标题 */
 .main-title {
-  font-size: 4rem;
+  font-size: clamp(2rem, 6vw, 4rem);
   font-weight: bold;
   letter-spacing: 2px;
   color: var(--text-color);
@@ -112,8 +111,9 @@ export default {
 /* 副标题 */
 .subtitle {
   margin-top: 1.2rem;
-  font-size: 1.3rem;
+  /* font-size: 1.2rem; */
   color: var(--text-color);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
 }
 
 /* 介绍内容的活动主要区域 */
@@ -186,5 +186,11 @@ export default {
 .feature-item p {
   color: var(--text-color);
   font-size: 1rem;
+}
+
+@media (max-width: 830px) {
+  .hero-section {
+
+  }
 }
 </style>
