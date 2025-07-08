@@ -146,12 +146,8 @@ export default {
           link: '#',
           children: [
             {
-              text: '博客',
-              link: '/blog'
-            },
-            {
               text: '共享知识库',
-              link: '/know'
+              link: '/knowledge'
             }
           ]
         },
