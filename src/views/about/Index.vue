@@ -23,12 +23,20 @@
     <section class="about-timeline">
       <h2>发展历程</h2>
       <div class="timeline">
-        <div class="timeline-item" v-for="item in timeline" :key="item.year">
+        <div
+          class="timeline-item"
+          v-for="(item, idx) in timeline"
+          :key="item.year"
+          :style="{ animationDelay: (0.15 * idx) + 's' }"
+        >
           <div class="timeline-dot"></div>
           <div class="timeline-content">
             <div class="timeline-year">{{ item.year }}</div>
             <div class="timeline-title">{{ item.title }}</div>
             <div class="timeline-desc">{{ item.desc }}</div>
+            <div v-if="item.images && item.images.length" class="timeline-images">
+              <img v-for="(img, idx) in item.images" :key="idx" :src="img" alt="" />
+            </div>
           </div>
         </div>
       </div>
@@ -60,12 +68,42 @@ export default {
   data() {
     return {
       timeline: [
-        { year: "2022.9", title: "工作室成立",desc: "NewWorld新世界工作室正式成立了！" },
-        { year: "2022.10", title: "第一个客户", desc: "成功交付工作室第一个游戏服务器插件定做项目。" },
-        { year: "2023.1", title: "团队扩展", desc: "吸纳多名优秀开发者，服务能力进一步提升。" },
-        { year: "2023", title: "创新突破", desc: "探索AI、云原生等新技术，持续为客户创造价值。" },
-        { year: "2024", title: "迈向未来", desc: "与更多客户、伙伴共创数字新世界。" },
-        { year: "2025", title: "未知", desc: "等待与您一同发掘。"}
+        { 
+          year: "2022.9",
+          title: "工作室成立",
+          desc: "NewWorld新世界工作室正式成立了！",
+          images: ['/image/test.png','/image/test2.png','/image/test.png',]
+        },
+        {
+          year: "2022.10",
+          title: "第一个客户",
+          desc: "成功交付工作室第一个游戏服务器插件定做项目。",
+          images:['/image/test.png']
+        },
+        {
+          year: "2023.1",
+          title: "团队扩展",
+          desc: "吸纳多名优秀开发者，服务能力进一步提升。",
+          images: []
+        },
+        {
+          year: "2023",
+          title: "创新突破",
+          desc: "探索AI、云原生等新技术，持续为客户创造价值。",
+          images: ['/image/test.png','/image/test.png','/image/test.png','/image/test.png','/image/test.png','/image/test.png']
+        },
+        {
+          year: "2024",
+          title: "迈向未来",
+          desc: "与更多客户、伙伴共创数字新世界。",
+          images: ['/image/test.png']
+        },
+        {
+          year: "2025",
+          title: "未知",
+          desc: "等待与您一同发掘。",
+          images: []
+        }
       ]
     }
   }
@@ -139,11 +177,7 @@ export default {
   opacity: 0;
   animation: fadeInUp 0.8s forwards;
 }
-.timeline-item:nth-child(1) { animation-delay: 0.1s; }
-.timeline-item:nth-child(2) { animation-delay: 0.3s; }
-.timeline-item:nth-child(3) { animation-delay: 0.5s; }
-.timeline-item:nth-child(4) { animation-delay: 0.7s; }
-.timeline-item:nth-child(5) { animation-delay: 0.9s; }
+
 .timeline-dot {
   position: absolute;
   left: -38px;
@@ -302,5 +336,38 @@ export default {
   0% { left: 10vw; top: 8vh; }
   50% { left: 13vw; top: 12vh; }
   100% { left: 10vw; top: 8vh; }
+}
+
+.timeline-images {
+  display: flex;
+  gap: 18px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.timeline-images img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(67,159,208,0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: #f6f6f6;
+  margin-bottom: 6px;
+}
+.timeline-images img:hover {
+  transform: scale(1.06) rotate(-2deg);
+  box-shadow: 0 8px 32px rgba(67,159,208,0.18);
+}
+@media (max-width: 900px) {
+  .timeline-images img {
+    width: 120px;
+    height: 80px;
+  }
+}
+@media (max-width: 600px) {
+  .timeline-images img {
+    width: 90px;
+    height: 60px;
+  }
 }
 </style>
