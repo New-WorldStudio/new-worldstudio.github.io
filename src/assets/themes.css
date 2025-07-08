@@ -5,6 +5,7 @@
     --text-color: black;
     --logo-text-color: #000000;
     --bg-color: #fff;
+    --bg-particles-color: #000;
     --primary-btn-text-color: #fff;
     --glow-color: #888;
 }
@@ -14,6 +15,7 @@
     --text-color: white;
     --logo-text-color: #fff;
     --bg-color: #1c1c20;
+    --bg-particles-color: #fff;
     --primary-btn-text-color: #fff;
     --glow-color: #fff;
 }

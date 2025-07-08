@@ -1,6 +1,7 @@
 <!-- 主页界面 -->
 <template>
-  <div class="main-container">
+  <div class="main-container" style="position: relative; overflow: hidden;">
+    <canvas ref="bgCanvas" class="bg-canvas"></canvas>
     <!--  -->
     <section class="hero-section">
       <div class="hero-content">
@@ -69,6 +70,12 @@ export default {
   },
   mounted() {
     this.startTypewriter();
+    this.initParticles();
+    window.addEventListener("resize", this.resizeCanvas);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.resizeCanvas);
+    cancelAnimationFrame(this.animationId);
   },
   methods: {
     startTypewriter() {
@@ -99,6 +106,65 @@ export default {
         setTimeout(type, delta);
       };
       type();
+    },
+    resizeCanvas() {
+      const canvas = this.$refs.bgCanvas;
+      const container = this.$el; // main-container
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight;
+    },
+    initParticles() {
+      this.resizeCanvas();
+      // 小球数量
+      const particleCount = 100;
+      const colors = [
+        "#ff4d4f", "#40a9ff", "#36cfc9", "#f7b500",
+        "#9254de", "#ff85c0", "#00c3ff", "#00e09e"
+      ];
+      const particles = [];
+      const canvas = this.$refs.bgCanvas;
+      const ctx = canvas.getContext("2d");
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: 1.5 + Math.random() * 2.5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5
+        });
+      }
+      this.particles = particles;
+      // 动画
+      const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          // 边界反弹
+          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+          // 轻微扰动
+          p.vx += (Math.random() - 0.5) * 0.01;
+          p.vy += (Math.random() - 0.5) * 0.01;
+          // 限制最大速度
+          p.vx = Math.max(Math.min(p.vx, 0.7), -0.7);
+          p.vy = Math.max(Math.min(p.vy, 0.7), -0.7);
+          // 绘制
+          ctx.save();
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 12;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = 0.7;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+          ctx.restore();
+        }
+        this.animationId = requestAnimationFrame(animate);
+      };
+      animate();
     }
   }
 }
@@ -110,6 +176,20 @@ export default {
   width: 100vw;
   min-height: 100vh;
   background: var(--bg-color);
+}
+
+/* 背景画板 */
+.bg-canvas {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.main-container > *:not(.bg-canvas) {
+  position: relative;
+  z-index: 1;
 }
 
 /* 介绍栏 */
@@ -142,10 +222,8 @@ export default {
   background-clip: text; /* 兼容部分浏览器 */
   color: transparent;
   font-size: clamp(2.5rem, 8vw, 5rem);
-  filter:
-      drop-shadow(0 0 10px #00c3ff99)
-  /* 可选：悬停时更亮 */
-}
+  //filter: drop-shadow(0 0 10px #00c3ff99)
+ }
 
 
 /* 主要大标题 */
@@ -172,6 +250,7 @@ export default {
   text-align: center;
 }
 
+/* 文字打字效果 */
 .typewriter-text {
   border-right: 2px solid #439fd0;
   animation: blink-cursor 1s steps(1) infinite;
@@ -233,6 +312,7 @@ export default {
   min-height: 100vh;
 }
 
+/* 展示部分标题样式 */
 .features-section-title {
   height: 50px;
   display: flex;
@@ -252,6 +332,7 @@ export default {
   font-size: clamp(0.6rem, 6vw, 2.2rem);
 }
 
+/* 展示部分列表容器 */
 .features-list {
   display: flex;
   justify-content: center;
@@ -260,6 +341,7 @@ export default {
   margin: 20px auto;
 }
 
+/* 展示部分列表容器物品样式 */
 .feature-item {
   background: #abaeb0;
   border-radius: 16px;
@@ -294,6 +376,7 @@ export default {
 
   }
 }
+
 
 
 </style>
