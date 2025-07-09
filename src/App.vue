@@ -42,6 +42,7 @@ export default {
   padding: 0;
 }
 
+/* 主要的页面容器，控制整个背景主题颜色 */
 .main {
   background: var(--bg-color);
 }

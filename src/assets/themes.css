@@ -9,16 +9,23 @@
     --primary-btn-text-color: #fff;  /* 按钮 */
     --glow-color: #888;     /* 大标题文字发光颜色 */
     --box-bg-color: #ffffff;    /* 盒子背景颜色 */
+
     --card-bg: rgba(255, 255, 255, 0.75);  /* 卡片背景颜色 */
     --card-text: #222;      /* 卡片文字颜色 */
     --card-title-color: #000;   /* 卡片标题颜色 */
     --card-content-text-color: #555;  /* 卡片内容文本颜色 */
+
     --project-card-bg-color: #fff;   /* 项目卡片背景颜色 */
     --project-page-button-color: #439fd0;  /* 项目上下切换按钮颜色 */
+
+    --project-page-info-title-color: #222;
+    --project-page-info-text-color: #666;
+
     --project-view-button-text-color: #16b97f; /* 项目详细按钮文本颜色 */
     --project-view-button-border-color: #16b97f; /* 项目详细按钮边框颜色 */
     --project-view-button-bg-color: #fff;  /* 项目详细按钮背景颜色 */
     --project-view-button-hover-bg-color: #16b97f;  /* 项目详细按钮被覆盖背景颜色 */
+
     --project-pagination-indicator-color: #439fd0;  /* 项目分页指示器颜色 */
 }
 
@@ -37,6 +44,10 @@
     --card-content-text-color: #f0f0f0;
     --project-card-bg-color: #1c1c1c;
     --project-page-button-color: #fff;
+
+    --project-page-info-title-color: #fff;
+    --project-page-info-text-color: #a9a7a7;
+
     --project-view-button-text-color: #fff;
     --project-view-button-border-color: #fff;
     --project-view-button-bg-color: #383838;

@@ -99,19 +99,18 @@
       </div>
     </section>
 
-    <!-- TODO:合作伙伴 -->
-    <section class="partners-section">
-      <div class="partners-section-title">
-        <span>合作伙伴</span>
-      </div>
-    </section>
+<!--    <section class="partners-section">-->
+<!--      <div class="partners-section-title">-->
+<!--        <span>合作伙伴</span>-->
+<!--      </div>-->
+<!--    </section>-->
 
-    <!-- TODO: 联系方式 -->
-    <section class="contacts-section">
-      <div class="contacts-section-title">
-        <span>联系我们</span>
-      </div>
-    </section>
+<!--    &lt;!&ndash; TODO: 来自客户的声音 &ndash;&gt;-->
+<!--    <section class="testimonials-section">-->
+<!--      <div class="testimonials-section-title">-->
+<!--        <span>来自客户的声音</span>-->
+<!--      </div>-->
+<!--    </section>-->
 
     <!-- TODO: 加入我们 -->
     <section class="recruit-section">
@@ -164,61 +163,41 @@ export default {
       projects: [
         {
           id: 1,
-          image: '/image/test.png',
-          category: '物联网',
-          tech: ['IoT', 'Big Data', 'Cloud'],
-          title: '智慧城市平台',
-          description: '城市数字化管理与监控系统'
+          image: '/image/projects/project1.png',
+          category: '企业官网',
+          tech: ['Vue3', 'Node.js'],
+          title: '企业官网',
+          description: '为该企业打造的高端响应式官网'
         },
         {
           id: 2,
-          image: '/image/test.png',
-          category: '电商平台',
-          tech: ['React', 'Django'],
-          title: '2某某电商平台',
-          description: '为某某企业打造的高端响应式官网...'
+          image: '/image/projects/project2.png',
+          category: '众包平台',
+          tech: ['Vue', 'SpringBoot','uni-app'],
+          title: '校小帮',
+          description: '专为大学生提供全套优质服务的平台'
         },
         {
           id: 3,
-          image: '/image/test.png',
-          category: '企业官网',
-          tech: ['Vue', 'Node.js'],
-          title: '3某某企业官网',
-          description: '为某某企业打造的高端响应式官网...'
+          image: 'https://raw.githubusercontent.com/EatFans/FanTp/refs/heads/main/doc/39B4B1507DE52EA1AE7DCE1EF14EB46C.png',
+          category: '游戏插件',
+          tech: ['Minecraft', 'Paper','Spigot'],
+          title: 'FanTp传送创建',
+          description: '轻量化简易的GUI传送插件'
         },
-        {
-          id: 4,
-          image: '/image/test.png',
-          category: '电商平台',
-          tech: ['React', 'Django'],
-          title: '4某某电商平台',
-          description: '为某某企业打造的高端响应式官网...'
-        },
-        {
-          id: 5,
-          image: '/image/test.png',
-          category: '企业官网',
-          tech: ['Vue', 'Node.js'],
-          title: '5某某企业官网',
-          description: '为某某企业打造的高端响应式官网...'
-        },
-        {
-          id: 6,
-          image: '/image/test.png',
-          category: '电商平台',
-          tech: ['React', 'Django'],
-          title: '6某某电商平台',
-          description: '为某某企业打造的高端响应式官网...'
-        },
+
+
       ],
       currentPage: 1,
       pageSize: 3 // 每页3个
     }
   },
   computed: {
+    // 计算总的页面
     totalPages() {
       return Math.ceil(this.projects.length / this.pageSize);
     },
+    // 分组
     pagedProjects() {
       // 分页后的二维数组
       const arr = [];
@@ -270,12 +249,14 @@ export default {
       };
       type();
     },
+    // 调整画板大小
     resizeCanvas() {
       const canvas = this.$refs.bgCanvas;
       const container = this.$el; // main-container
       canvas.width = container.clientWidth;
       canvas.height = container.clientHeight;
     },
+    // 初始化粒子效果
     initParticles() {
       this.resizeCanvas();
       // 小球数量
@@ -329,6 +310,7 @@ export default {
       };
       animate();
     },
+    // 更改页码
     changePage(dir) {
       if (dir === 'prev' && this.currentPage > 1) this.currentPage--;
       if (dir === 'next' && this.currentPage < this.totalPages) this.currentPage++;
@@ -484,7 +466,7 @@ export default {
 .features-section-title,
 .projects-section-title,
 .partners-section,
-.contacts-section-title,
+.testimonials-section-title,
 .recruit-section-title{
   height: 70px;
   display: flex;
@@ -496,7 +478,7 @@ export default {
 .features-section-title span,
 .project-section-title span,
 .partners-section span,
-.contacts-section-title span,
+.testimonials-section-title span,
 .recruit-section-title span{
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 700;
@@ -721,11 +703,11 @@ export default {
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 8px;
-  color: #222;
+  color: var(--project-page-info-title-color);
 }
 .project-info p {
   font-size: 1rem;
-  color: #666;
+  color: var(--project-page-info-text-color);
   margin-bottom: 18px;
 }
 
@@ -832,8 +814,8 @@ export default {
   border: red solid 1px;
 }
 
-/* TODO: 联系我们 */
-.contacts-section{
+/* TODO: 来自客户的声音 */
+.testimonials-section{
   margin: 64px 0 120px 0;
   text-align: center;
   border: red solid 1px;
