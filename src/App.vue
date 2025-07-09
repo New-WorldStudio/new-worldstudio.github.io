@@ -42,6 +42,9 @@ export default {
   padding: 0;
 }
 
+.main {
+  background: var(--bg-color);
+}
 
 
 </style>

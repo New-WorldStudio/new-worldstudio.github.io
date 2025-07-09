@@ -40,10 +40,62 @@
 
     </section>
 
-    <!-- TODO:案例 -->
-    <section class="cases-section">
-      <div class="cases-section-title">
-        <span>案例</span>
+    <!-- 项目作品 -->
+    <section class="projects-section">
+      <div class="project-section-title">
+        <span>项目作品</span>
+      </div>
+      <div class="projects-slider-wrapper">
+        <button 
+          class="page-button prev" 
+          :disabled="currentPage === 1"
+          @click="changePage('prev')"
+        >←</button>
+        <div class="projects-slider">
+          <div
+            class="projects-track"
+            :style="{
+              width: totalPages * 100 + '%',
+              transform: `translateX(-${(currentPage-1) * (100 / totalPages)}%)`
+            }"
+          >
+            <div
+              v-for="(page, pageIdx) in pagedProjects"
+              :key="pageIdx"
+              class="projects-page"
+              :style="{ width: 100 / totalPages + '%' }"
+            >
+              <div
+                v-for="project in page"
+                :key="project.id"
+                class="project-card"
+              >
+                <div class="project-image-wrapper">
+                  <img class="project-image" :src="project.image" alt="" />
+                  <div class="project-overlay">
+                    <div class="project-category">{{ project.category }}</div>
+                    <div class="project-tags">
+                      <span v-for="tag in project.tech" :key="tag" class="project-tag">{{ tag }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <h3>{{ project.title }}</h3>
+                  <p>{{ project.description }}</p>
+                  <button class="view-project">查看详情</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button 
+          class="page-button next" 
+          :disabled="currentPage === totalPages"
+          @click="changePage('next')"
+        >→</button>
+      </div>
+      <div class="pagination-indicator">
+        {{ currentPage }} / {{ totalPages }}
       </div>
     </section>
 
@@ -108,7 +160,72 @@ export default {
           desc: '从需求分析到上线运维，全程无忧'
         },
 
-      ]
+      ],
+      projects: [
+        {
+          id: 1,
+          image: '/image/test.png',
+          category: '物联网',
+          tech: ['IoT', 'Big Data', 'Cloud'],
+          title: '智慧城市平台',
+          description: '城市数字化管理与监控系统'
+        },
+        {
+          id: 2,
+          image: '/image/test.png',
+          category: '电商平台',
+          tech: ['React', 'Django'],
+          title: '2某某电商平台',
+          description: '为某某企业打造的高端响应式官网...'
+        },
+        {
+          id: 3,
+          image: '/image/test.png',
+          category: '企业官网',
+          tech: ['Vue', 'Node.js'],
+          title: '3某某企业官网',
+          description: '为某某企业打造的高端响应式官网...'
+        },
+        {
+          id: 4,
+          image: '/image/test.png',
+          category: '电商平台',
+          tech: ['React', 'Django'],
+          title: '4某某电商平台',
+          description: '为某某企业打造的高端响应式官网...'
+        },
+        {
+          id: 5,
+          image: '/image/test.png',
+          category: '企业官网',
+          tech: ['Vue', 'Node.js'],
+          title: '5某某企业官网',
+          description: '为某某企业打造的高端响应式官网...'
+        },
+        {
+          id: 6,
+          image: '/image/test.png',
+          category: '电商平台',
+          tech: ['React', 'Django'],
+          title: '6某某电商平台',
+          description: '为某某企业打造的高端响应式官网...'
+        },
+      ],
+      currentPage: 1,
+      pageSize: 3 // 每页3个
+    }
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.projects.length / this.pageSize);
+    },
+    pagedProjects() {
+      // 分页后的二维数组
+      const arr = [];
+      for (let i = 0; i < this.projects.length; i += this.pageSize) {
+        arr.push(this.projects.slice(i, i + this.pageSize));
+      }
+      return arr;
     }
   },
   mounted() {
@@ -211,6 +328,10 @@ export default {
         this.animationId = requestAnimationFrame(animate);
       };
       animate();
+    },
+    changePage(dir) {
+      if (dir === 'prev' && this.currentPage > 1) this.currentPage--;
+      if (dir === 'next' && this.currentPage < this.totalPages) this.currentPage++;
     }
   }
 }
@@ -361,7 +482,7 @@ export default {
 
 /* 板块部分标题样式 */
 .features-section-title,
-.cases-section-title,
+.projects-section-title,
 .partners-section,
 .contacts-section-title,
 .recruit-section-title{
@@ -373,7 +494,7 @@ export default {
 
 /* 板块标题 */
 .features-section-title span,
-.cases-section-title span,
+.project-section-title span,
 .partners-section span,
 .contacts-section-title span,
 .recruit-section-title span{
@@ -472,6 +593,222 @@ export default {
   margin: 64px 0 120px 0;
   text-align: center;
   border: red solid 1px;
+}
+
+/* 项目作品部分样式 */
+.projects-section {
+  margin: 80px 0 0 0;
+  text-align: center;
+}
+
+.section-title h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #439fd0;
+}
+.title-underline {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #439fd0, #7ed6df);
+  margin: 12px auto 32px auto;
+  border-radius: 2px;
+}
+.projects-slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+/* 页面切换button */
+.page-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--project-page-button-color);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.page-button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+.projects-slider {
+  overflow: hidden;
+  width: 1000px; /* 可自适应 */
+  max-width: 90vw;
+}
+.projects-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(.22,1.12,.36,1);
+}
+.projects-page {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 32px; /* 增大间隔，比如32px或40px */
+}
+
+/* 项目卡片 */
+.project-card {
+  width: 320px;
+  background: var(--project-card-bg-color);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px 0 rgba(67,159,208,0.10);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.28s cubic-bezier(.22,1.12,.36,1), transform 0.28s cubic-bezier(.22,1.12,.36,1);
+  margin: 0 auto;
+  will-change: transform, box-shadow;
+}
+
+.project-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, #439fd0 0%, #42d392 100%);
+  overflow: hidden;
+}
+
+/* 项目图片 */
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s;
+  /* 不做blur，避免锯齿 */
+}
+
+.project-overlay {
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: rgba(34, 40, 60, 0.60);
+  color: #ffffff;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 20px 18px 18px 18px;
+  transition: opacity 0.28s cubic-bezier(.22,1.12,.36,1);
+  pointer-events: none;
+}
+
+/* 项目卡片被鼠标覆盖时候，显示项目卡片的遮罩层 */
+.project-card:hover .project-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.project-category {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+/* 项目标签容器 */
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 项目标签样式 */
+.project-tag {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  border-radius: 16px;
+  padding: 3px 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 1px 4px 0 rgba(67,159,208,0.10);
+}
+
+/* 项目信息部分 */
+.project-info {
+  padding: 28px 22px 24px 22px;
+  background: var(--project-card-bg-color);
+  border-radius: 0 0 24px 24px;
+  text-align: left;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.project-info h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #222;
+}
+.project-info p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 18px;
+}
+
+/* 项目详细按钮 */
+.view-project {
+  background: var(--project-card-bg-color);
+  color: var(--project-view-button-text-color);
+  border: 1.5px solid var(--project-view-button-border-color);
+  border-radius: 20px;
+  padding: 6px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* 页面详细按钮被覆盖 */
+.view-project:hover {
+  background: var(--project-view-button-hover-bg-color);
+  color: #fff;
+}
+
+/* 分页指示器 */
+.pagination-indicator {
+  margin-top: 18px;
+  color: var(--project-pagination-indicator-color);
+  font-size: 1.1rem;
+}
+@media (max-width: 1100px) {
+  .projects-slider {
+    width: 700px;
+  }
+  .project-card {
+    width: 220px;
+  }
+}
+@media (max-width: 900px) {
+  .projects-slider {
+    width: 98vw;
+  }
+  .project-card {
+    width: 90vw;
+    margin: 0 2vw;
+  }
+  .projects-slider-wrapper {
+    gap: 6px;
+  }
+}
+@media (max-width: 600px) {
+  .project-card {
+    width: 98vw;
+    min-width: 0;
+  }
+  .project-info {
+    padding: 18px 8vw 18px 8vw;
+  }
 }
 
 @media (max-width: 900px) {
