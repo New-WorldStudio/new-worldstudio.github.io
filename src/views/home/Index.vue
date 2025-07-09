@@ -567,33 +567,6 @@ export default {
   margin: 0;
 }
 
-/* TODO: 案例板块部分样式 */
-.cases-section {
-  margin: 64px 0 120px 0;
-  text-align: center;
-  border: red solid 1px;
-}
-
-/* TODO: 合作伙伴 */
-.partners-section {
-  margin: 64px 0 120px 0;
-  text-align: center;
-  border: red solid 1px;
-}
-
-/* TODO: 联系我们 */
-.contacts-section{
-  margin: 64px 0 120px 0;
-  text-align: center;
-  border: red solid 1px;
-}
-
-/* TODO: 加入我们 */
-.recruit-section{
-  margin: 64px 0 120px 0;
-  text-align: center;
-  border: red solid 1px;
-}
 
 /* 项目作品部分样式 */
 .projects-section {
@@ -849,6 +822,28 @@ export default {
     transform: translateY(0) scale(1);
     filter: blur(0);
   }
+}
+
+
+/* TODO: 合作伙伴 */
+.partners-section {
+  margin: 64px 0 120px 0;
+  text-align: center;
+  border: red solid 1px;
+}
+
+/* TODO: 联系我们 */
+.contacts-section{
+  margin: 64px 0 120px 0;
+  text-align: center;
+  border: red solid 1px;
+}
+
+/* TODO: 加入我们 */
+.recruit-section{
+  margin: 64px 0 120px 0;
+  text-align: center;
+  border: red solid 1px;
 }
 
 /* 底部栏样式 */
