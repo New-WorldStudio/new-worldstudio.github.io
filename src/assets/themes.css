@@ -2,9 +2,9 @@
 
 /* 默认的浅色主题 */
 :root {
-    --text-color: black;
-    --logo-text-color: #000000;
-    --bg-color: #fff;
+    --text-color: black;  /* 普通文本字体颜色 */
+    --logo-text-color: #000000;  /* logo文本字体颜色 */
+    --bg-color: #fff;   /* 背景颜色 */
     --bg-particles-color: #000;
     --primary-btn-text-color: #fff;
     --glow-color: #888;

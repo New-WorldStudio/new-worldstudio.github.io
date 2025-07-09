@@ -20,7 +20,7 @@
       </div>
     </section>
 
-    <!-- TODO: 特征特长展示区域 -->
+    <!-- 特征特长展示区域 -->
     <section class="features-section">
       <div class="features-section-title">
         <span>我们的优势</span>
@@ -38,20 +38,35 @@
         </div>
       </div>
 
-<!--      <div class="features-list">-->
-<!--        <div-->
-<!--            class="feature-card"-->
-<!--            v-for="(item, idx) in features"-->
-<!--            :key="idx"-->
-<!--            :style="{ animationDelay: (idx * 0.1) + 's' }"-->
-<!--        >-->
-<!--          <div class="feature-icon" v-html="item.icon"></div>-->
-<!--          <h3>{{ item.title }}</h3>-->
-<!--          <p>{{ item.desc }}</p>-->
-<!--        </div>-->
-<!--      </div>-->
     </section>
-    <!-- 可继续添加案例、合作伙伴、联系方式等分区 -->
+
+    <!-- TODO:案例 -->
+    <section class="cases-section">
+      <div class="cases-section-title">
+        <span>案例</span>
+      </div>
+    </section>
+
+    <!-- TODO:合作伙伴 -->
+    <section class="partners-section">
+      <div class="partners-section-title">
+        <span>合作伙伴</span>
+      </div>
+    </section>
+
+    <!-- TODO: 联系方式 -->
+    <section class="contacts-section">
+      <div class="contacts-section-title">
+        <span>联系我们</span>
+      </div>
+    </section>
+
+    <!-- TODO: 加入我们 -->
+    <section class="recruit-section">
+      <div class="recruit-section-title">
+        <span>加入我们</span>
+      </div>
+    </section>
 
     <!-- 底部栏 -->
     <div class="footer">
@@ -340,20 +355,28 @@ export default {
 
 /* 展示部分样式 */
 .features-section {
-  margin: 64px 0 60px 0;
+  margin: 64px 0 120px 0;
   text-align: center;
 }
 
-/* 展示部分标题样式 */
-.features-section-title {
+/* 板块部分标题样式 */
+.features-section-title,
+.cases-section-title,
+.partners-section,
+.contacts-section-title,
+.recruit-section-title{
   height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* 展示区标题 */
-.features-section-title span {
+/* 板块标题 */
+.features-section-title span,
+.cases-section-title span,
+.partners-section span,
+.contacts-section-title span,
+.recruit-section-title span{
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 700;
   background: linear-gradient(90deg, #439fd0 30%, #7ed6df 100%);
@@ -379,7 +402,7 @@ export default {
   color: var(--card-text);
   backdrop-filter: blur(8px);
   border-radius: 18px;
-  box-shadow: 0 4px 24px 0 rgba(67,159,208,0.10);
+  box-shadow: 0 4px 24px 0 rgba(67,159,208,0.2);
   padding: 36px 28px 28px 28px;
   width: 300px;
   min-width: 220px;
@@ -421,6 +444,34 @@ export default {
   font-size: 1rem;
   color: var(--card-content-text-color);
   margin: 0;
+}
+
+/* TODO: 案例板块部分样式 */
+.cases-section {
+  margin: 64px 0 120px 0;
+  text-align: center;
+  border: red solid 1px;
+}
+
+/* TODO: 合作伙伴 */
+.partners-section {
+  margin: 64px 0 120px 0;
+  text-align: center;
+  border: red solid 1px;
+}
+
+/* TODO: 联系我们 */
+.contacts-section{
+  margin: 64px 0 120px 0;
+  text-align: center;
+  border: red solid 1px;
+}
+
+/* TODO: 加入我们 */
+.recruit-section{
+  margin: 64px 0 120px 0;
+  text-align: center;
+  border: red solid 1px;
 }
 
 @media (max-width: 900px) {
@@ -473,11 +524,6 @@ export default {
   color: var(--text-color);
 }
 
-@media (max-width: 830px) {
-  .hero-section {
-
-  }
-}
 
 @keyframes fade-in {
   0% {

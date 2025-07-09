@@ -42,12 +42,6 @@ export default {
   padding: 0;
 }
 
-.main {
-  background: white;
-}
 
 
-.main.dark {
-  background: black;
-}
 </style>
