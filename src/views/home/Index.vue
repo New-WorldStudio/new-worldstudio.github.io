@@ -115,7 +115,7 @@
     <!-- TODO: 加入我们 -->
     <section class="recruit-section">
       <div class="recruit-section-title">
-        <span>加入我们</span>
+        <span></span>
       </div>
     </section>
 
@@ -164,16 +164,16 @@ export default {
         {
           id: 1,
           image: '/image/projects/project1.png',
-          category: '企业官网',
-          tech: ['Vue3', 'Node.js'],
-          title: '企业官网',
-          description: '为该企业打造的高端响应式官网'
+          category: '小程序',
+          tech: ['Vue','SpringBoot','uni-app','RuoYi'],
+          title: '点餐小程序',
+          description: '饮食餐饮门店点餐小程序'
         },
         {
           id: 2,
           image: '/image/projects/project2.png',
           category: '众包平台',
-          tech: ['Vue', 'SpringBoot','uni-app'],
+          tech: ['Vue', 'SpringBoot','uni-app','RuoYi'],
           title: '校小帮',
           description: '专为大学生提供全套优质服务的平台'
         },
@@ -184,6 +184,14 @@ export default {
           tech: ['Minecraft', 'Paper','Spigot'],
           title: 'FanTp传送创建',
           description: '轻量化简易的GUI传送插件'
+        },
+        {
+          id: 4,
+          image: '/image/projects/project1.png',
+          category: '企业官网',
+          tech: ['Vue3', 'Node.js'],
+          title: '企业官网',
+          description: '为该企业打造的高端响应式官网'
         },
 
 
@@ -825,7 +833,7 @@ export default {
 .recruit-section{
   margin: 64px 0 120px 0;
   text-align: center;
-  border: red solid 1px;
+  //border: red solid 1px;
 }
 
 /* 底部栏样式 */
