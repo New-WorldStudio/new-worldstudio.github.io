@@ -98,13 +98,14 @@
       </div>
     </section>
 
-<!--    <section class="partners-section">-->
-<!--      <div class="partners-section-title">-->
-<!--        <span>合作伙伴</span>-->
-<!--      </div>-->
-<!--    </section>-->
 
-    <!-- 定制服务 -->
+    <!-- TODO: 定制服务 -->
+    <section class="custom-service-section">
+      <div class="custom-service-section-title">
+        <span>定制服务</span>
+      </div>
+    </section>
+
 
     <section class="recruit-section">
       <div class="recruit-section-title">
@@ -558,6 +559,7 @@ export default {
 .projects-section-title,
 .partners-section,
 .testimonials-section-title,
+.custom-service-section-title,
 .recruit-section-title{
   height: 70px;
   display: flex;
@@ -570,6 +572,7 @@ export default {
 .project-section-title span,
 .partners-section span,
 .testimonials-section-title span,
+.custom-service-section-title span,
 .recruit-section-title span{
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 700;
@@ -898,15 +901,8 @@ export default {
 }
 
 
-/* TODO: 合作伙伴 */
-.partners-section {
-  margin: 64px 0 120px 0;
-  text-align: center;
-  border: red solid 1px;
-}
-
-/* TODO: 来自客户的声音 */
-.testimonials-section{
+/* TODO: 定制服务 */
+.custom-service-section{
   margin: 64px 0 120px 0;
   text-align: center;
   border: red solid 1px;
