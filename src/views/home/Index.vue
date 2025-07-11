@@ -15,7 +15,8 @@
           <span ref="typewriter" class="typewriter-text"></span>
         </p>
         <div class="hero-actions">
-
+          <button class="primary-btn" @click="goCustom">开始定制</button>
+          <button class="secondary-btn" @click="goContact">联系我们</button>
         </div>
       </div>
     </section>
@@ -372,10 +373,11 @@ export default {
         this.currentPage = this.totalPages;
       }
     },
+    goCustom() {
+      this.$router.push('/contact'); // 或 '/custom'，根据你的路由实际情况
+    },
     goContact() {
-      // 跳转到联系我们页面或弹出邮箱/二维码
-      alert('投递简历或合作咨询请联系我们！');
-      // 实际应用中可以跳转到 /contact 或弹出邮箱/二维码
+      this.$router.push('/contact');
     }
   }
 }
@@ -418,6 +420,10 @@ export default {
   text-align: center;
   max-width: 700px;
   color: #fff;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 12px;
 }
 
 /* 工作室主要logo */
@@ -467,8 +473,11 @@ export default {
   border-right: 2px solid #439fd0;
   animation: blink-cursor 1s steps(1) infinite;
   display: inline-block;
-  max-width: 90vw;
   min-width: 10ch;
+  max-width: 100%;
+  width: auto;
+  text-align: center;
+  margin: 0 auto;
   white-space: normal;
   word-break: break-all;
   overflow-wrap: break-word;
@@ -487,36 +496,62 @@ export default {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
-
-.primary-btn, .secondary-btn {
-  padding: 0.75rem 2rem;
-  font-size: 1.1rem;
-  border-radius: 15px;
-  font-weight: 600;
-  transition: background 0.2s, color 0.2s;
-}
-
 .primary-btn {
-  background: black;
-  border: white solid 1px;
-  color: var(--primary-btn-text-color);
-
+  background: linear-gradient(90deg, #439fd0, #42d392);
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 0.75rem 2.2rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  box-shadow: 0 2px 12px 0 rgba(67,159,208,0.10);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
-
 .primary-btn:hover {
-  background: #e0f7fa;
+  background: #222;
+  color: #7ed6df;
+  box-shadow: 0 4px 24px 0 rgba(67,159,208,0.18);
 }
-
 .secondary-btn {
   background: transparent;
-  color: var(--text-color);
-  border: 1.5px solid #fff;
-}
-
-.secondary-btn:hover {
-  background: #fff;
   color: #439fd0;
+  border: 2px solid #439fd0;
+  border-radius: 18px;
+  padding: 0.75rem 2.2rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.secondary-btn:hover {
+  background: #439fd0;
+  color: #fff;
+  border-color: #42d392;
+}
+@media (max-width: 600px) {
+  .hero-content {
+    padding: 0 8vw;
+    max-width: 100vw;
+  }
+  .hero-actions {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  .primary-btn, .secondary-btn {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  .typewriter-text {
+    max-width: 100vw;
+    min-width: 0;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 /* 展示部分样式 */
