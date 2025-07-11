@@ -122,7 +122,7 @@ export default {
         },
         {
           text: '案例演示',
-          link: '#',
+          link: '',
           children: [
             {
               text: 'Web网站',
@@ -143,33 +143,15 @@ export default {
         },
         {
           text: '技术支持',
-          link: '#',
+          link: '',
           children: [
             {
               text: '共享知识库',
               link: '/knowledge'
-            }
-          ]
-        },
-        {
-          text: '定制服务',
-          link: '#',
-          children: [
-            {
-              text: 'Web网站',
-              link: '#'
             },
             {
-              text: '小程序',
-              link: '#'
-            },
-            {
-              text: '移动端app',
-              link: '#',
-            },
-            {
-              text: '游戏插件模组',
-              link: '#'
+              text: 'Q&A',
+              link: '/t'
             }
           ]
         },
@@ -195,11 +177,6 @@ export default {
             }
           ]
         },
-        {
-          text: '联系我们',
-          link: '/test',
-          children: []
-        }
       ]
     }
   },

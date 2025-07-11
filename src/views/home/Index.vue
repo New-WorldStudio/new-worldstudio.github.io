@@ -38,9 +38,7 @@
           <p>{{ item.desc }}</p>
         </div>
       </div>
-
     </section>
-
     <!-- 项目作品 -->
     <section class="projects-section">
       <div class="project-section-title">
@@ -106,12 +104,7 @@
 <!--      </div>-->
 <!--    </section>-->
 
-<!--    &lt;!&ndash; TODO: 来自客户的声音 &ndash;&gt;-->
-<!--    <section class="testimonials-section">-->
-<!--      <div class="testimonials-section-title">-->
-<!--        <span>来自客户的声音</span>-->
-<!--      </div>-->
-<!--    </section>-->
+    <!-- 定制服务 -->
 
     <section class="recruit-section">
       <div class="recruit-section-title">
