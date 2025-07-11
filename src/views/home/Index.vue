@@ -100,7 +100,7 @@
 
 
     <!-- 定制服务 -->
-    <section class="custom-service-section">
+    <section class="custom-service-section" ref="customServiceSection">
       <div class="custom-service-section-title">
         <span>定制服务</span>
       </div>
@@ -108,16 +108,16 @@
         <h3>专属定制 · 全流程服务 · 一对一沟通</h3>
         <p>我们为企业和个人提供高端网站、小程序、APP、系统开发等定制服务，助力您的数字化升级。</p>
       </div>
-      <div class="custom-service-cards">
+      <div class="custom-service-cards" >
         <div class="custom-service-card" v-for="item in customServices" :key="item.title">
           <div class="custom-service-icon" v-html="item.icon"></div>
           <h4>{{ item.title }}</h4>
           <p>{{ item.desc }}</p>
         </div>
       </div>
-      <div class="custom-service-process">
+      <div class="custom-service-process" ref="customServiceContact">
         <h4>合作流程</h4>
-        <div class="custom-service-steps">
+        <div class="custom-service-steps" >
           <div class="step" v-for="step in processSteps" :key="step.title">
             <div class="step-icon" v-html="step.icon"></div>
             <div class="step-title">{{ step.title }}</div>
@@ -125,7 +125,7 @@
           </div>
         </div>
       </div>
-      <div class="custom-service-contact">
+      <div class="custom-service-contact" >
         <h4>联系我们的方式，获取专属顾问服务</h4>
         <div class="contact-cards">
           <div class="contact-card" v-for="item in contacts" :key="item.type">
@@ -428,10 +428,10 @@ export default {
       }
     },
     goCustom() {
-      this.$router.push('/contact'); // 或 '/custom'，根据你的路由实际情况
+      this.$refs.customServiceSection?.scrollIntoView({ behavior: "smooth" });
     },
     goContact() {
-      this.$router.push('/contact');
+      this.$refs.customServiceContact?.scrollIntoView({ behavior: "smooth" });
     },
     copyContact(val) {
       navigator.clipboard.writeText(val).then(() => {
