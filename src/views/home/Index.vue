@@ -215,7 +215,6 @@ export default {
 
       ],
       currentPage: 1,
-      pageSize: 3, // 每页3个
       recruitList: [
         {
           icon: '💻',
@@ -245,13 +244,13 @@ export default {
     }
   },
   computed: {
-    // 计算总的页面
+    pageSize() {
+      return window.innerWidth <= 700 ? 1 : 3;
+    },
     totalPages() {
       return Math.ceil(this.projects.length / this.pageSize);
     },
-    // 分组
     pagedProjects() {
-      // 分页后的二维数组
       const arr = [];
       for (let i = 0; i < this.projects.length; i += this.pageSize) {
         arr.push(this.projects.slice(i, i + this.pageSize));
@@ -264,10 +263,10 @@ export default {
     this.startTypewriter();
     // 初始化粒子效果
     this.initParticles();
-    window.addEventListener("resize", this.resizeCanvas);
+    window.addEventListener("resize", this.handleResize);
   },
   beforeUnmount() {
-    window.removeEventListener("resize", this.resizeCanvas);
+    window.removeEventListener("resize", this.handleResize);
     cancelAnimationFrame(this.animationId);
   },
   methods: {
@@ -366,6 +365,12 @@ export default {
     changePage(dir) {
       if (dir === 'prev' && this.currentPage > 1) this.currentPage--;
       if (dir === 'next' && this.currentPage < this.totalPages) this.currentPage++;
+    },
+    handleResize() {
+      // 页码越界时自动回到最后一页
+      if (this.currentPage > this.totalPages) {
+        this.currentPage = this.totalPages;
+      }
     },
     goContact() {
       // 跳转到联系我们页面或弹出邮箱/二维码
