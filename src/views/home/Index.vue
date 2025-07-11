@@ -112,10 +112,28 @@
 <!--      </div>-->
 <!--    </section>-->
 
-    <!-- TODO: 加入我们 -->
     <section class="recruit-section">
       <div class="recruit-section-title">
-        <span></span>
+        <span>加入我们</span>
+      </div>
+      <div class="recruit-content">
+        <div class="recruit-intro">
+          <h3>和优秀的人一起做有趣的事</h3>
+          <p>NewWorld Studio 致力于打造开放、创新、温暖的团队氛围。我们欢迎热爱技术、追求卓越的你加入，一起创造更美好的数字世界！</p>
+        </div>
+        <div class="recruit-cards">
+          <div class="recruit-card" v-for="item in recruitList" :key="item.title">
+            <div class="recruit-icon" v-html="item.icon"></div>
+            <h4>{{ item.title }}</h4>
+            <p>{{ item.desc }}</p>
+            <div v-if="item.tags" class="recruit-tags">
+              <span v-for="tag in item.tags" :key="tag" class="recruit-tag">{{ tag }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="recruit-action">
+          <button class="recruit-btn" @click="goContact">投递简历 / 合作咨询</button>
+        </div>
       </div>
     </section>
 
@@ -197,7 +215,33 @@ export default {
 
       ],
       currentPage: 1,
-      pageSize: 3 // 每页3个
+      pageSize: 3, // 每页3个
+      recruitList: [
+        {
+          icon: '💻',
+          title: '前端开发',
+          desc: 'Vue/React/小程序等现代前端开发，追求极致体验',
+          tags: ['远程','线下', '实习','全职']
+        },
+        {
+          icon: '🧑‍💻',
+          title: '后端开发',
+          desc: 'Java/SpringBoot/Spring，参与高质量后端系统设计',
+          tags: ['远程','线下','实习','全职']
+        },
+        {
+          icon: '🎨',
+          title: 'UI/UX设计',
+          desc: '参与高端网站/APP设计，追求美学与体验的统一',
+          tags: ['远程','线下','审美', '创新']
+        },
+        {
+          icon: '🤝',
+          title: '商务合作',
+          desc: '欢迎各类项目合作、渠道拓展、资源互换',
+          tags: ['合作','开放', '共赢']
+        }
+      ]
     }
   },
   computed: {
@@ -322,6 +366,11 @@ export default {
     changePage(dir) {
       if (dir === 'prev' && this.currentPage > 1) this.currentPage--;
       if (dir === 'next' && this.currentPage < this.totalPages) this.currentPage++;
+    },
+    goContact() {
+      // 跳转到联系我们页面或弹出邮箱/二维码
+      alert('投递简历或合作咨询请联系我们！');
+      // 实际应用中可以跳转到 /contact 或弹出邮箱/二维码
     }
   }
 }
@@ -330,9 +379,10 @@ export default {
 
 <style scoped>
 .main-container {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background: var(--bg-color);
+  overflow-x: hidden;
 }
 
 /* 背景画板 */
@@ -351,7 +401,7 @@ export default {
 
 /* 介绍栏 */
 .hero-section {
-  width: 100vw;
+  width: 100%;
   min-height: 60vh;
   display: flex;
   align-items: center;
@@ -829,11 +879,151 @@ export default {
   border: red solid 1px;
 }
 
-/* TODO: 加入我们 */
+/* 加入我们 */
 .recruit-section{
   margin: 64px 0 120px 0;
   text-align: center;
-  //border: red solid 1px;
+  background: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* 加入我们主体内容部分 */
+.recruit-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: var(--recruit-content-content-bg-color);
+  //background: rgba(255,255,255,0.85);
+  border-radius: 28px;
+  box-shadow: 0 8px 48px 0 rgba(67,159,208,0.10);
+  padding: 48px 32px 32px 32px;
+  backdrop-filter: blur(12px) saturate(1.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recruit-intro h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--recruit-intro-title-color);
+  letter-spacing: 1px;
+}
+.recruit-intro p {
+  font-size: 1.1rem;
+  color: var(--recruit-intro-text-color);
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.recruit-cards {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+/* 加入我们卡片 */
+.recruit-card {
+  background: var(--recruit-card-bg-color);
+  //background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px 0 rgba(67,159,208,0.06);
+  padding: 28px 22px 22px 22px;
+  min-width: 220px;
+  max-width: 260px;
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.22s, box-shadow 0.22s;
+  animation: fadeUpStrong 0.9s cubic-bezier(.22,1.12,.36,1) both;
+}
+.recruit-card:hover {
+  transform: translateY(-16px) scale(1.06) rotate(-1deg);
+  box-shadow: 0 8px 32px 0 rgba(67,159,208,0.18);
+}
+.recruit-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 2px 8px #7ed6df55);
+}
+.recruit-card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--recruit-card-title-color);
+}
+.recruit-card p {
+  font-size: 1rem;
+  color: var(--recruit-card-text-color);
+  margin-bottom: 10px;
+}
+.recruit-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.recruit-tag {
+  background: linear-gradient(90deg, #439fd0 30%, #7ed6df 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 4px 0 rgba(67,159,208,0.10);
+}
+.recruit-action {
+  margin-top: 18px;
+}
+.recruit-btn {
+  background: linear-gradient(90deg, #439fd0, #42d392);
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 12px 38px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 12px 0 rgba(67,159,208,0.10);
+  transition: background 0.2s, color 0.2s;
+}
+.recruit-btn:hover {
+  background: #222;
+  color: #7ed6df;
+}
+@media (max-width: 900px) {
+  .recruit-content {
+    padding: 24px 4vw 24px 4vw;
+  }
+  .recruit-cards {
+    gap: 16px;
+  }
+  .recruit-card {
+    min-width: 140px;
+    max-width: 98vw;
+    padding: 18px 8px;
+  }
+}
+@media (max-width: 600px) {
+  .recruit-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .recruit-card {
+    width: 98vw;
+    min-width: 0;
+    max-width: 98vw;
+    padding: 16px 4vw;
+  }
+  .recruit-intro h3 {
+    font-size: 1.1rem;
+  }
 }
 
 /* 底部栏样式 */

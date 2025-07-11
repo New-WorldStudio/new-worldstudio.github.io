@@ -27,6 +27,13 @@
     --project-view-button-hover-bg-color: #16b97f;  /* 项目详细按钮被覆盖背景颜色 */
 
     --project-pagination-indicator-color: #439fd0;  /* 项目分页指示器颜色 */
+
+    --recruit-content-content-bg-color: rgb(255,255,255,0.85);
+    --recruit-intro-title-color: #222;
+    --recruit-intro-text-color: #666;
+    --recruit-card-bg-color: rgba(255,255,255,0.92);
+    --recruit-card-title-color: #222;
+    --recruit-card-text-color: #555;
 }
 
 /* 深色主题 */
@@ -53,4 +60,11 @@
     --project-view-button-bg-color: #383838;
     --project-view-button-hover-bg-color: #646363;
     --project-pagination-indicator-color: #fff;
+
+    --recruit-content-content-bg-color: rgb(28, 28, 32);
+    --recruit-intro-title-color: #fff;
+    --recruit-intro-text-color: #a9a7a7;
+    --recruit-card-bg-color: rgba(37, 36, 36, 0.92);
+    --recruit-card-title-color: #fff;
+    --recruit-card-text-color: #a9a7a7;
 }
