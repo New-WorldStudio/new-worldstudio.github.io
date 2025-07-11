@@ -99,10 +99,44 @@
     </section>
 
 
-    <!-- TODO: 定制服务 -->
+    <!-- 定制服务 -->
     <section class="custom-service-section">
       <div class="custom-service-section-title">
         <span>定制服务</span>
+      </div>
+      <div class="custom-service-intro">
+        <h3>专属定制 · 全流程服务 · 一对一沟通</h3>
+        <p>我们为企业和个人提供高端网站、小程序、APP、系统开发等定制服务，助力您的数字化升级。</p>
+      </div>
+      <div class="custom-service-cards">
+        <div class="custom-service-card" v-for="item in customServices" :key="item.title">
+          <div class="custom-service-icon" v-html="item.icon"></div>
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.desc }}</p>
+        </div>
+      </div>
+      <div class="custom-service-process">
+        <h4>合作流程</h4>
+        <div class="custom-service-steps">
+          <div class="step" v-for="step in processSteps" :key="step.title">
+            <div class="step-icon" v-html="step.icon"></div>
+            <div class="step-title">{{ step.title }}</div>
+            <div class="step-desc">{{ step.desc }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-service-contact">
+        <h4>联系我们的方式，获取专属顾问服务</h4>
+        <div class="contact-cards">
+          <div class="contact-card" v-for="item in contacts" :key="item.type">
+            <div class="contact-label">
+              <span v-if="item.icon" class="contact-icon">{{ item.icon }}</span>
+              <span class="contact-tip-label">{{ item.tip }}：</span>
+              <span class="contact-value">{{ item.value }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="contact-tip">备注“定制咨询”，我们会第一时间与您联系！</div>
       </div>
     </section>
 
@@ -210,6 +244,7 @@ export default {
 
       ],
       currentPage: 1,
+      pageSize: 3, // 默认3
       recruitList: [
         {
           icon: '💻',
@@ -235,13 +270,36 @@ export default {
           desc: '欢迎各类项目合作、渠道拓展、资源互换',
           tags: ['合作','开放', '共赢']
         }
-      ]
+      ],
+      customServices: [
+        { icon: '🌐', title: '高端网站定制', desc: '企业官网、品牌站、营销落地页等' },
+        { icon: '📱', title: '小程序/APP开发', desc: '全平台小程序、原生/混合APP' },
+        { icon: '🛠️', title: '系统开发', desc: 'SaaS、管理后台、业务系统' },
+        { icon: '🎮', title: '游戏插件', desc: '游戏服务器插件、模组开发'},
+        // { icon: '🎨', title: 'UI/UX设计', desc: '高端界面设计与交互体验' }
+      ],
+      processSteps: [
+        { icon: '💬', title: '需求沟通', desc: '微信/钉钉一对一沟通需求' },
+        { icon: '📝', title: '方案报价', desc: '定制专属解决方案与报价' },
+        { icon: '🛠️', title: '开发实现', desc: '专业团队高效开发' },
+        { icon: '✅', title: '交付上线', desc: '全流程测试，协助上线' },
+        { icon: '🔄', title: '售后支持', desc: '持续维护与升级' }
+      ],
+      contacts: [
+        {
+          value: 'newworldstudio@163.com',
+          icon: '📧',
+          tip: '邮箱'
+        },
+        {
+          value: 'eatfan0921@163.com',
+          icon: '📧',
+          tip: '邮箱2'
+        }
+      ],
     }
   },
   computed: {
-    pageSize() {
-      return window.innerWidth <= 700 ? 1 : 3;
-    },
     totalPages() {
       return Math.ceil(this.projects.length / this.pageSize);
     },
@@ -258,10 +316,11 @@ export default {
     this.startTypewriter();
     // 初始化粒子效果
     this.initParticles();
-    window.addEventListener("resize", this.handleResize);
+    this.updatePageSize();
+    window.addEventListener("resize", this.updatePageSize);
   },
   beforeUnmount() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("resize", this.updatePageSize);
     cancelAnimationFrame(this.animationId);
   },
   methods: {
@@ -361,7 +420,8 @@ export default {
       if (dir === 'prev' && this.currentPage > 1) this.currentPage--;
       if (dir === 'next' && this.currentPage < this.totalPages) this.currentPage++;
     },
-    handleResize() {
+    updatePageSize() {
+      this.pageSize = window.innerWidth <= 700 ? 1 : 3;
       // 页码越界时自动回到最后一页
       if (this.currentPage > this.totalPages) {
         this.currentPage = this.totalPages;
@@ -372,6 +432,27 @@ export default {
     },
     goContact() {
       this.$router.push('/contact');
+    },
+    copyContact(val) {
+      navigator.clipboard.writeText(val).then(() => {
+        alert(val + ' 已复制！');
+      });
+    },
+    copyWechat() {
+      const wechat = 'newworldstudio';
+      navigator.clipboard.writeText(wechat).then(() => {
+        alert('微信号已复制！');
+      }).catch(err => {
+        console.error('复制失败:', err);
+      });
+    },
+    copyDing() {
+      const ding = 'newworld-ding';
+      navigator.clipboard.writeText(ding).then(() => {
+        alert('钉钉号已复制！');
+      }).catch(err => {
+        console.error('复制失败:', err);
+      });
     }
   }
 }
@@ -550,7 +631,7 @@ export default {
 
 /* 展示部分样式 */
 .features-section {
-  margin: 64px 0 120px 0;
+  margin: 64px 0 180px 0;
   text-align: center;
 }
 
@@ -646,7 +727,7 @@ export default {
 
 /* 项目作品部分样式 */
 .projects-section {
-  margin: 80px 0 0 0;
+  margin: 120px 0 120px 0;
   text-align: center;
 }
 
@@ -901,16 +982,229 @@ export default {
 }
 
 
-/* TODO: 定制服务 */
-.custom-service-section{
-  margin: 64px 0 120px 0;
+/*  定制服务 */
+.custom-service-section {
+  margin: 120px 0 180px 0;
   text-align: center;
-  border: red solid 1px;
+  background: none;
+  position: relative;
+  z-index: 1;
 }
+.custom-service-section-title {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-service-section-title span {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  background: linear-gradient(90deg, #439fd0 30%, #7ed6df 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  margin-bottom: 32px;
+  letter-spacing: 2px;
+}
+.custom-service-intro h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--recruit-card-title-color);
+  letter-spacing: 1px;
+}
+.custom-service-intro p {
+  font-size: 1.08rem;
+  color: var(--recruit-card-text-color);
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.custom-service-cards {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.custom-service-card {
+  background: var(--recruit-card-bg-color);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px 0 rgba(67,159,208,0.06);
+  padding: 28px 22px 22px 22px;
+  min-width: 220px;
+  max-width: 260px;
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.22s, box-shadow 0.22s;
+  animation: fadeUpStrong 0.9s cubic-bezier(.22,1.12,.36,1) both;
+}
+.custom-service-card:hover {
+  transform: translateY(-12px) scale(1.05) rotate(-1deg);
+  box-shadow: 0 8px 32px 0 rgba(67,159,208,0.18);
+}
+.custom-service-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 2px 8px #7ed6df55);
+}
+.custom-service-card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color:var(--recruit-card-title-color);
+}
+.custom-service-card p {
+  font-size: 1rem;
+  color: var(--recruit-card-text-color);
+  margin-bottom: 10px;
+}
+
+/* 合作流程 */
+.custom-service-process {
+  margin: 40px 0 24px 0;
+}
+.custom-service-process h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #439fd0;
+  margin-bottom: 18px;
+}
+.custom-service-steps {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.step {
+  background: var(--recruit-card-bg-color);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px 0 rgba(67,159,208,0.06);
+  padding: 18px 16px;
+  min-width: 120px;
+  max-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.step-icon {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+.step-title {
+  font-weight: 600;
+  color: var(--recruit-card-title-color);
+  margin-bottom: 4px;
+}
+.step-desc {
+  font-size: 0.98rem;
+  color: var(--recruit-card-text-color);
+}
+
+/* 联系方式区块 */
+.custom-service-contact {
+  margin-top: 36px;
+}
+.custom-service-contact h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #439fd0;
+  margin-bottom: 18px;
+}
+.contact-cards {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.contact-card {
+  background: var(--recruit-card-bg-color, #fff);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px 0 rgba(67,159,208,0.08);
+  padding: 18px 18px 12px 18px;
+  min-width: 220px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-label {
+  font-size: 1rem;
+  color: var(--text-color, #222);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  flex-wrap: wrap; /* 允许内容换行 */
+  white-space: normal; /* 允许内容换行 */
+}
+
+.contact-icon {
+  font-size: 1.2rem;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.contact-tip-label {
+  font-weight: 500;
+  color: #222;
+  flex-shrink: 0;
+}
+
+.contact-value {
+  font-family: 'Menlo', 'Consolas', monospace;
+  color: #439fd0;
+  font-size: 1rem;
+  word-break: break-all; /* 长内容自动断行 */
+  overflow-wrap: anywhere;
+  max-width: 100%; /* 允许内容占满可用空间 */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@media (min-width: 601px) {
+  .contact-value {
+    max-width: 220px; /* 或更大，根据卡片宽度调整 */
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .contact-card {
+    width: 98vw;
+    min-width: 0;
+    max-width: 98vw;
+    padding: 12px 4vw;
+  }
+  .contact-label {
+    font-size: 0.98rem;
+    flex-wrap: wrap;
+    gap: 6px;
+    white-space: normal;
+  }
+  .contact-value {
+    max-width: 60vw;
+  }
+}
+
 
 /* 加入我们 */
 .recruit-section{
-  margin: 64px 0 120px 0;
+  margin: 120px 0 120px 0;
   text-align: center;
   background: none;
   position: relative;
