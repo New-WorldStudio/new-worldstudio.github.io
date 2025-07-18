@@ -81,7 +81,7 @@
                 <div class="project-info">
                   <h3>{{ project.title }}</h3>
                   <p>{{ project.description }}</p>
-                  <button class="view-project">查看详情</button>
+                  <button class="view-project" @click="goToPage(project.link)">查看详情</button>
                 </div>
               </div>
             </div>
@@ -214,7 +214,8 @@ export default {
           category: '小程序',
           tech: ['Vue','SpringBoot','uni-app','RuoYi'],
           title: '点餐小程序',
-          description: '饮食餐饮门店点餐小程序'
+          description: '饮食餐饮门店点餐小程序',
+          link: 'https://github.com'
         },
         {
           id: 2,
@@ -222,7 +223,8 @@ export default {
           category: '众包平台',
           tech: ['Vue', 'SpringBoot','uni-app','RuoYi'],
           title: '校小帮',
-          description: '专为大学生提供全套优质服务的平台'
+          description: '专为大学生提供全套优质服务的平台',
+          link: 'https://github.com'
         },
         {
           id: 3,
@@ -230,7 +232,8 @@ export default {
           category: '游戏插件',
           tech: ['Minecraft', 'Paper','Spigot'],
           title: 'FanTp传送创建',
-          description: '轻量化简易的GUI传送插件'
+          description: '轻量化简易的GUI传送插件',
+          link: 'https://github.com/EatFans/FanTp'
         },
         {
           id: 4,
@@ -238,7 +241,8 @@ export default {
           category: '企业官网',
           tech: ['Vue3', 'Node.js'],
           title: '企业官网',
-          description: '为该企业打造的高端响应式官网'
+          description: '为该企业打造的高端响应式官网',
+          link: 'https://github.com'
         },
 
 
@@ -324,6 +328,10 @@ export default {
     cancelAnimationFrame(this.animationId);
   },
   methods: {
+    goToPage(url){
+      window.open(url);
+    },
+
     // 开启打字特效
     startTypewriter() {
       const el = this.$refs.typewriter;
@@ -428,10 +436,10 @@ export default {
       }
     },
     goCustom() {
-      this.$refs.customServiceSection?.scrollIntoView({ behavior: "smooth" });
+      window.open("https://work.weixin.qq.com/kfid/kfc87626dccf6d8a92a",'_blank');
     },
     goContact() {
-      this.$refs.customServiceContact?.scrollIntoView({ behavior: "smooth" });
+      window.open("https://work.weixin.qq.com/kfid/kfc87626dccf6d8a92a",'_blank');
     },
     copyContact(val) {
       navigator.clipboard.writeText(val).then(() => {
