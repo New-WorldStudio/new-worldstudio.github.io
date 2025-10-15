@@ -8,7 +8,7 @@
         <img class="studio-logo" src="" alt="" />
         <h1>
           <span class="main-title">
-            <span class="gradient-text">NewWorld</span><br><span class="main-title-glow">新世界开发工作室</span>
+            <span class="gradient-text">NewWorld</span><br><span class="main-title-glow">1新世界开发工作室</span>
           </span>
         </h1>
         <p class="subtitle">
